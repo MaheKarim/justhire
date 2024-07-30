@@ -156,7 +156,7 @@
     },
     "manage_rentals": {
         "title": "Manage Rentals",
-        "icon": "las la-money-bill-wave",
+        "icon": "las la-list-ol",
         "counter": ["pendingRentalCount"],
         "menu_active": "admin.rental*",
         "submenu": [

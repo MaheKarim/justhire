@@ -68,6 +68,27 @@
                                     <option value="3" @selected(gs('currency_format') == Status::CUR_SYM)>@lang('Show Currency Symbol Only')</option>
                                 </select>
                             </div>
+                            <div class="form-group col-xl-4 col-sm-4">
+                                <label class="required">@lang('Maximum Image can be Uploaded')</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" name="max_image_upload"
+                                           value="{{ getAmount(gs('max_image_upload')) }}" required>
+                                    <span class="input-group-text">@lang('Qty')</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-xl-4 col-sm-4">
+                                <div class="form-group">
+                                    <label>@lang('Rental Charge')</label>
+                                    <div class="input-group">
+                                        <input type="number" step="any" class="form-control" name="rental_charge" value="{{ getAmount(gs('rental_charge')) }}" required>
+                                        <span class="input-group-text">@lang('%')</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-xl-4 col-sm-4">
+                                <label>@lang('Google Map API Key')</label>
+                                <input type="text" name="api_key" class="form-control" value="{{ @gs('api_key') }}" required>
+                            </div>
                         </div>
 
                         <div class="form-group">

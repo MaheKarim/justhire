@@ -43,7 +43,6 @@ class SystemController extends Controller
         return view('admin.system.update',compact('pageTitle'));
     }
 
-
     public function systemUpdateProcess(){
         if (gs('system_customized')) {
             return response()->json([
