@@ -7,8 +7,10 @@ use App\Lib\Searchable;
 use App\Models\AdminNotification;
 use App\Models\Deposit;
 use App\Models\Frontend;
+use App\Models\Rental;
 use App\Models\SupportTicket;
 use App\Models\User;
+use App\Models\Vehicle;
 use App\Models\Withdrawal;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\ServiceProvider;
@@ -59,9 +61,12 @@ class AppServiceProvider extends ServiceProvider
                 'mobileUnverifiedUsersCount'   => User::mobileUnverified()->count(),
                 'kycUnverifiedUsersCount'   => User::kycUnverified()->count(),
                 'kycPendingUsersCount'   => User::kycPending()->count(),
-                'pendingTicketCount'         => SupportTicket::whereIN('status', [Status::TICKET_OPEN, Status::TICKET_REPLY])->count(),
+                'pendingTicketCount'      => SupportTicket::whereIN('status', [Status::TICKET_OPEN, Status::TICKET_REPLY])->count(),
                 'pendingDepositsCount'    => Deposit::pending()->count(),
                 'pendingWithdrawCount'    => Withdrawal::pending()->count(),
+                'pendingStoreCount'       => User::storePending()->count(),
+                'pendingVehicleCount'     => Vehicle::pending()->inactive()->count(),
+                'pendingRentalCount'      => Rental::pending()->count(),
                 'updateAvailable'    => version_compare(gs('available_version'),systemDetails()['version'],'>') ? 'v'.gs('available_version') : false,
             ]);
         });

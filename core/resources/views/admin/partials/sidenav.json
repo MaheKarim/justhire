@@ -35,7 +35,7 @@
         "title": "Vehicle Type",
         "icon": "las la-stream",
         "route_name": "admin.type.index",
-        "menu_active": "admin.type.index.*"
+        "menu_active": "admin.type*"
     },
     "manage_vehicle_class": {
         "keyword": [
@@ -46,7 +46,29 @@
         "title": "Vehicle Classes",
         "icon": "las la-bezier-curve",
         "route_name": "admin.class.index",
-        "menu_active": "admin.class.index.*"
+        "menu_active": "admin.class*"
+    },
+    "manage_zone": {
+        "keyword": [
+        "Zone",
+        "Manage Zone",
+        "Zone Management"
+         ],
+        "title": "Zones",
+        "icon": "las la-map-marked-alt",
+        "route_name": "admin.zone.index",
+        "menu_active": "admin.zone*"
+    },
+    "manage_brand": {
+        "keyword": [
+        "Brand",
+        "Manage Brand",
+        "Brand Management"
+         ],
+        "title": "Brands",
+        "icon": "las la-tag",
+        "route_name": "admin.brand.index",
+        "menu_active": "admin.brand.index.*"
     },
     "manage_users": {
         "title": "Manage Users",
