@@ -4,14 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Constants\Status;
 use App\Models\AdminNotification;
+use App\Models\Brand;
 use App\Models\Frontend;
 use App\Models\Language;
 use App\Models\Page;
+use App\Models\Subscriber;
 use App\Models\SupportMessage;
 use App\Models\SupportTicket;
+use App\Models\User;
+use App\Models\Vehicle;
+use App\Models\VehicleType;
+use App\Models\VehicleZone;
+use App\Models\Zone;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Validator;
 
 
 class SiteController extends Controller
@@ -39,7 +47,6 @@ class SiteController extends Controller
         return view('Template::pages', compact('pageTitle','sections','seoContents','seoImage'));
     }
 
-
     public function contact()
     {
         $pageTitle = "Contact Us";
@@ -49,7 +56,6 @@ class SiteController extends Controller
         $seoImage = @$seoContents->image ? getImage(getFilePath('seo') . '/' . @$seoContents->image, getFileSize('seo')) : null;
         return view('Template::contact',compact('pageTitle','user','sections','seoContents','seoImage'));
     }
-
 
     public function contactSubmit(Request $request)
     {
@@ -115,14 +121,25 @@ class SiteController extends Controller
         return back();
     }
 
-    public function blogDetails($slug){
+    public function blog()
+    {
+        $blogs     = Frontend::where('tempname', activeTemplateName())->where('data_keys', 'blog.element')->latest()->paginate(getPaginate(12));
+        $pageTitle = 'Blog';
+        $page      = Page::where('tempname', activeTemplate())->where('slug', 'blog')->first();
+        $sections  = $page->secs;
+        return view('Template::blog', compact('blogs', 'pageTitle', 'sections'));
+    }
+
+    public function blogDetails($slug)
+    {
         $blog = Frontend::where('slug',$slug)->where('data_keys','blog.element')->firstOrFail();
+        $latestBlogs = Frontend::where('$slug', '!=', $slug)->where('data_keys', 'blog.element')->orderBy('id', 'desc')->limit(5)->get();
         $pageTitle = $blog->data_values->title;
         $seoContents = $blog->seo_content;
         $seoImage = @$seoContents->image ? frontendImage('blog',$seoContents->image,getFileSize('seo'),true) : null;
-        return view('Template::blog_details',compact('blog','pageTitle','seoContents','seoImage'));
-    }
 
+        return view('Template::blog_details', compact('blog','pageTitle','seoContents','seoImage', 'latestBlogs'));
+    }
 
     public function cookieAccept(){
         Cookie::queue('gdpr_cookie',gs('site_name') , 43200);
@@ -172,6 +189,110 @@ class SiteController extends Controller
         }
         $maintenance = Frontend::where('data_keys','maintenance.data')->first();
         return view('Template::maintenance',compact('pageTitle','maintenance'));
+    }
+
+    public function subscribe(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()]);
+        }
+
+        $emailExist = Subscriber::where('email', $request->email)->first();
+
+        if ($emailExist) {
+            return response()->json(['error' => 'Already subscribed']);
+        }
+
+        $subscribe        = new Subscriber();
+        $subscribe->email = $request->email;
+        $subscribe->save();
+
+        return response()->json(['success' => 'Subscribed successfully']);
+    }
+
+    public function vehicles(Request $request, $slug = null) {
+        $pageTitle      = 'Vehicles';
+        $vehicleClasses = null;
+        $vehicleType    = null;
+        if ($slug) {
+            $vehicleType = VehicleType::active()->withWhereHas('vehicleClass', function ($class) {
+                $class->active();
+            })->where('slug', $slug)->first();
+            if (!$vehicleType) {
+                $notify[] = ['error', 'Vehicle type not found'];
+                return to_route('home')->withNotify($notify);
+            }
+            $vehicleClasses = $vehicleType->vehicleClass;
+        }
+
+        if ($vehicleType && !$vehicleType->manage_class) {
+            $vehicles = $this->filterVehicles($vehicleType, null);
+        } else {
+            $vehicles = $this->filterVehicles(null, $vehicleClasses);
+        }
+
+        $brands = Brand::active()->orderBy('name')->get(['id', 'name']);
+        $zones  = Zone::active()->orderBy('name')->get();
+        return view('Template::vehicle.index', compact('pageTitle', 'vehicles', 'brands', 'zones', 'vehicleClasses', 'slug', 'vehicleType'));
+    }
+
+    public function vehicleDetail($id) {
+        $pageTitle = 'Vehicle Detail';
+        $vehicle   = Vehicle::available()->with(['rental' => function ($query) {
+            $query->activeToday();
+        }])->with('reviewData.user')->findOrFail($id);
+        $zones = $vehicle->zones()->with('locations')->get();
+        return view('Template::vehicle.detail', compact('pageTitle', 'vehicle', 'zones'));
+    }
+
+    public function filterVehicles($vehicleType = null, $vehicleClass = null) {
+
+        $vehicles = Vehicle::available();
+        if ($vehicleType) {
+            $vehicles->where('vehicle_type_id', $vehicleType->id);
+        }
+
+        if ($vehicleClass) {
+            $vehicles->whereIn('vehicle_class_id', $vehicleClass->pluck('id')->toArray());
+        }
+
+        $request = request();
+
+        if ($request->vehicle_type_id) {
+            $vehicles->where('vehicle_type_id', $request->vehicle_type_id);
+        }
+
+        if ($request->pick_up_zone_id) {
+            $pickZoneId = User::where('zone_id', $request->pick_up_zone_id)->pluck('id')->toArray();
+            $vehicles->whereIn('user_id', $pickZoneId);
+        }
+
+        if ($request->date) {
+            $date      = explode('-', $request->date);
+            $startDate = Carbon::parse(trim($date[0]))->format('Y-m-d');
+            $endDate   = @$date[1] ? Carbon::parse(trim(@$date[1]))->format('Y-m-d') : $startDate;
+            $vehicles->whereDoesntHave('rental', function ($query) use ($startDate, $endDate) {
+                $query->where(function ($q) use ($startDate, $endDate) {
+                    $q->where('start_date', '<=', $endDate)
+                        ->where('end_date', '>=', $startDate);
+                });
+            });
+        }
+
+        if ($request->drop_off_zone_id) {
+            $dropZoneId = VehicleZone::where('zone_id', $request->drop_off_zone_id)->pluck('vehicle_id')->toArray();
+            $vehicles->whereIn('id', $dropZoneId);
+        }
+
+        if ($request->price) {
+            list($column, $value) = explode('_', $request->price);
+            $vehicles->orderBy($column, $value);
+        }
+
+        return $vehicles = $vehicles->filter(['fuel_type', 'transmission_type', 'vehicle_class_id', 'brand_id'])->with('user.zone')->orderBy('id', 'desc')->paginate(getPaginate(18));
     }
 
 }

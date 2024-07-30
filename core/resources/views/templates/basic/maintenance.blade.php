@@ -1,38 +1,37 @@
-@extends($activeTemplate . 'layouts.frontend')
-@section('content')
-    <section class="maintenance-page flex-column justify-content-center">
+@extends($activeTemplate . 'layouts.app')
+@section('app')
+    <section class="maintanance-page">
         <div class="container">
-            <div class="row justify-content-center align-items-center">
-                <div class="col-lg-7 text-center">
-                    <div class="row justify-content-center">
-                        <div class="col-sm-6 col-8 col-lg-12">
-                            <img class="img-fluid mx-auto mb-5" src="{{ getImage(getFilePath('maintenance') . '/' . @$maintenance->data_values->image, getFileSize('maintenance')) }}" alt="image">
-                        </div>
+            <div class="row justify-content-center">
+                <div class="col-xl-8">
+                    <div class="maintanance-icon mx-auto mb-4">
+                        <i class="fas fa-exclamation-triangle"></i>
                     </div>
-                    <p class="mx-auto text-center">@php echo $maintenance->data_values->description @endphp</p>
+                    @php echo $maintenance->data_values->description @endphp
                 </div>
             </div>
         </div>
     </section>
 @endsection
-
 @push('style')
-<style>
-    header{
-        display:none;
-    }
-    footer{
-        display:none;
-    }
-    .breadcrumb{
-        display:none;
-    }
-    body{
-        background-color:white;
-        display: flex;
-        align-items: center;
-        height: 100vh;
-        justify-content: center;
-    }
-</style>
+    <style>
+        .maintanance-page {
+            display: grid;
+            place-content: center;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .maintanance-icon {
+            width: 60px;
+            height: 60px;
+            display: grid;
+            place-items: center;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: #fff;
+            font-size: 26px;
+            color: hsl(var(--danger));
+        }
+    </style>
 @endpush
