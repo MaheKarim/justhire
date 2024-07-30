@@ -154,6 +154,73 @@
             "menu_active": "admin.vehicle.rejected*"
         }]
     },
+    "manage_rentals": {
+        "title": "Manage Rentals",
+        "icon": "las la-money-bill-wave",
+        "counter": ["pendingRentalCount"],
+        "menu_active": "admin.rental*",
+        "submenu": [
+            {
+                "keyword": [
+                    "All Rentals",
+                    "Manage Rentals",
+                    "Rental Management",
+                    "Rental Control",
+                    "Rental Status",
+                    "Rental Activity"
+                ],
+                "title": "All Rentals",
+                "route_name": "admin.rental.index",
+                "menu_active": "admin.rental.index*"
+            }, {
+                "keyword": ["Pending Rentals", "Manage Rentals", "Rental Management", "Rental Control", "Rental Status", "Rental Activity"],
+                "title": "Pending Rentals",
+                "route_name": "admin.rental.pending",
+                "menu_active": "admin.rental.pending*",
+                "counter": "pendingRentalCount"
+            }, {
+                "keyword": [
+                    "Approved Rentals",
+                    "Manage Rentals",
+                    "Rental Management",
+                    "Rental Control",
+                    "Rental Status",
+                    "Rental Activity"
+                ],
+                "title": "Approved Rentals",
+                "route_name": "admin.rental.approved",
+                "menu_active": "admin.rental.approved*"
+            }, {
+                "keyword": [ "Ongoing Rentals",
+                  "Manage Rentals",
+                  "Rental Management",
+                  "Rental Control",
+                  "Rental Status",
+                  "Rental Activity"
+                ],
+                "title": "Ongoing Rentals",
+                "route_name": "admin.rental.ongoing",
+                "menu_active": "admin.rental.ongoing*"
+            }, {
+                "keyword" : ["Completed Rentals", "Manage Rentals", "Rental Management", "Rental Control", "Rental Status", "Rental Activity"],
+                "title": "Completed Rentals",
+                "route_name": "admin.rental.completed",
+                "menu_active": "admin.rental.completed*"
+            }, {
+                "keyword": [
+                    "Cancelled Rentals",
+                    "Manage Cancelled Rentals",
+                    "Cancelled Rental Management",
+                    "Cancelled Rental Control",
+                    "Cancelled Rental Status",
+                    "Cancelled Rental Activity"
+                ],
+                "title": "Cancelled Rentals",
+                "route_name": "admin.rental.cancelled",
+                "menu_active": "admin.rental.cancelled*"
+            }
+        ]
+    },
     "manage_users": {
         "title": "Manage Users",
         "icon": "las la-users",
