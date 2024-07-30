@@ -17,8 +17,8 @@ use Laramin\Utility\VugiChugi;
 
 function systemDetails()
 {
-    $system['name'] = 'viseradmin';
-    $system['version'] = '1.0';
+    $system['name'] = 'justhire';
+    $system['version'] = '2.0';
     $system['build_version'] = '5.0.9';
     return $system;
 }

@@ -28,10 +28,15 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'kyc_data' => 'object',
-        'ver_code_send_at' => 'datetime'
+        'address'           => 'object',
+        'kyc_data'          => 'object',
+        'ver_code_send_at'  => 'datetime',
+        'store_data'        => 'object',
     ];
 
+    public function zone() {
+        return $this->belongsTo(Zone::class);
+    }
 
     public function loginLogs()
     {
@@ -116,6 +121,19 @@ class User extends Authenticatable
     public function scopeWithBalance($query)
     {
         return $query->where('balance','>', 0);
+    }
+
+    public function scopeStoreInitiate($query) {
+        return $query->where('store', Status::STORE_INITIATE)->whereNotNUll('store_data');
+    }
+    public function scopeStorePending($query) {
+        return $query->where('store', Status::STORE_PENDING)->whereNotNUll('store_data');
+    }
+    public function scopeStoreApproved($query) {
+        return $query->where('store', Status::STORE_APPROVED)->whereNotNUll('store_data');
+    }
+    public function scopeStoreRejected($query) {
+        return $query->where('store', Status::STORE_REJECTED)->whereNotNUll('store_data');
     }
 
     public function deviceTokens()

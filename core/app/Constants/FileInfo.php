@@ -79,6 +79,19 @@ class FileInfo
         $data['pushConfig'] = [
             'path'      => 'assets/admin',
         ];
+        $data['vehicleType'] = [
+            'path' => 'assets/images/vehicleType',
+            'size' => '305x230',
+        ];
+        $data['vehicleStore'] = [
+            'path' => 'assets/images/vehicleStore',
+            'size' => '300x150',
+        ];
+        $data['vehicle'] = [
+            'path'  => 'assets/images/vehicle',
+            'size'  => '735x490',
+            'thumb' => '465x310',
+        ];
         return $data;
 	}
 

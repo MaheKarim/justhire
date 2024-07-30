@@ -80,6 +80,67 @@ Route::middleware('admin')->group(function () {
         Route::get('count-by-segment/{methodName}', 'countBySegment')->name('segment.count');
         Route::get('notification-log/{id}', 'notificationLog')->name('notification.log');
     });
+    // vehicle
+    Route::controller('VehicleController')->prefix('vehicle')->group(function () {
+        // type
+        Route::name('type.')->prefix('type')->group(function () {
+            Route::get('index', 'types')->name('index');
+            Route::post('store/{id?}', 'typeStore')->name('store');
+            Route::post('status/{id}', 'typeStatus')->name('status');
+        });
+        // class
+        Route::name('class.')->prefix('class')->group(function () {
+            Route::get('index', 'classes')->name('index');
+            Route::post('store/{id?}', 'classStore')->name('store');
+            Route::post('status/{id}', 'classStatus')->name('status');
+        });
+    });
+    // Brand
+    Route::controller('BrandController')->prefix('brand')->name('brand.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('store/{id?}', 'store')->name('store');
+        Route::post('status/{id}', 'status')->name('status');
+    });
+    // Zone
+    Route::controller('ZoneController')->prefix('zone')->name('zone.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('add/{id?}', 'add')->name('add');
+        Route::post('store/{id?}', 'store')->name('store');
+        Route::post('status/{id}', 'status')->name('status');
+    });
+    // Store
+    Route::controller('StoreController')->prefix('store')->name('store.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('pending', 'pending')->name('pending');
+        Route::get('approved', 'approved')->name('approved');
+        Route::get('rejected', 'rejected')->name('rejected');
+        Route::get('edit/{id}', 'edit')->name('edit');
+        Route::post('update/{id}', 'update')->name('update');
+        Route::get('detail/{id}', 'detail')->name('detail');
+        Route::post('approve/{id}', 'approve')->name('approve');
+        Route::post('reject/{id}', 'reject')->name('reject');
+    });
+    // manage Vehicle
+    Route::controller('ManageVehicleController')->prefix('vehicle')->name('vehicle.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('pending', 'pending')->name('pending');
+        Route::get('approved', 'approved')->name('approved');
+        Route::get('rejected', 'rejected')->name('rejected');
+        Route::get('detail/{id}', 'detail')->name('detail');
+        Route::post('status/{id}', 'status')->name('status');
+        Route::post('approve/{id}', 'approve')->name('approve');
+        Route::post('reject/{id}', 'reject')->name('reject');
+    });
+    // manage Rental
+    Route::controller('ManageRentalController')->prefix('rental')->name('rental.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('pending', 'pending')->name('pending');
+        Route::get('approved', 'approved')->name('approved');
+        Route::get('ongoing', 'ongoing')->name('ongoing');
+        Route::get('completed', 'completed')->name('completed');
+        Route::get('cancelled', 'cancelled')->name('cancelled');
+        Route::get('detail/{id}', 'detail')->name('detail');
+    });
 
     // Subscriber
     Route::controller('SubscriberController')->prefix('subscriber')->name('subscriber.')->group(function(){
@@ -112,7 +173,6 @@ Route::middleware('admin')->group(function () {
         });
     });
 
-
     // DEPOSIT SYSTEM
     Route::controller('DepositController')->prefix('deposit')->name('deposit.')->group(function(){
         Route::get('all/{user_id?}', 'deposit')->name('list');
@@ -126,7 +186,6 @@ Route::middleware('admin')->group(function () {
         Route::post('approve/{id}', 'approve')->name('approve');
 
     });
-
 
     // WITHDRAW SYSTEM
     Route::name('withdraw.')->prefix('withdraw')->group(function(){
@@ -162,7 +221,6 @@ Route::middleware('admin')->group(function () {
         Route::get('email/detail/{id}', 'emailDetails')->name('email.details');
     });
 
-
     // Admin Support
     Route::controller('SupportTicketController')->prefix('ticket')->name('ticket.')->group(function(){
         Route::get('/', 'tickets')->name('index');
@@ -175,7 +233,6 @@ Route::middleware('admin')->group(function () {
         Route::get('download/{attachment_id}', 'ticketDownload')->name('download');
         Route::post('delete/{id}', 'ticketDelete')->name('delete');
     });
-
 
     // Language Manager
     Route::controller('LanguageController')->prefix('language')->name('language.')->group(function(){
@@ -236,7 +293,6 @@ Route::middleware('admin')->group(function () {
 
     });
 
-
     Route::controller('CronConfigurationController')->name('cron.')->prefix('cron')->group(function () {
         Route::get('index', 'cronJobs')->name('index');
         Route::post('store', 'cronJobStore')->name('store');
@@ -250,7 +306,6 @@ Route::middleware('admin')->group(function () {
         Route::post('schedule/log/resolved/{id}', 'scheduleLogResolved')->name('schedule.log.resolved');
         Route::post('schedule/log/flush/{id}', 'logFlush')->name('log.flush');
     });
-
 
     //KYC setting
     Route::controller('KycController')->group(function(){
@@ -297,7 +352,6 @@ Route::middleware('admin')->group(function () {
         Route::post('status/{id}', 'status')->name('status');
     });
 
-
     //System Information
     Route::controller('SystemController')->name('system.')->prefix('system')->group(function(){
         Route::get('info','systemInfo')->name('info');
@@ -309,10 +363,8 @@ Route::middleware('admin')->group(function () {
         Route::get('system-update/log','systemUpdateLog')->name('update.log');
     });
 
-
     // SEO
     Route::get('seo', 'FrontendController@seoEdit')->name('seo');
-
 
     // Frontend
     Route::name('frontend.')->prefix('frontend')->group(function () {

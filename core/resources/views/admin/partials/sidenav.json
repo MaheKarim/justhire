@@ -26,6 +26,28 @@
         "route_name": "admin.dashboard",
         "menu_active": "admin.dashboard"
     },
+    "manage_vehicle_type": {
+        "keyword": ["Vehicle Type", "Manage Vehicle Type", "Vehicle Management",
+          "Vehicle Control",
+          "Vehicle Status",
+          "Vehicle Activity"
+        ],
+        "title": "Vehicle Type",
+        "icon": "las la-stream",
+        "route_name": "admin.type.index",
+        "menu_active": "admin.type.index.*"
+    },
+    "manage_vehicle_class": {
+        "keyword": [
+        "Vehicle Class",
+        "Manage Vehicle Class",
+        "Vehicle Management"
+         ],
+        "title": "Vehicle Classes",
+        "icon": "las la-bezier-curve",
+        "route_name": "admin.class.index",
+        "menu_active": "admin.class.index.*"
+    },
     "manage_users": {
         "title": "Manage Users",
         "icon": "las la-users",
