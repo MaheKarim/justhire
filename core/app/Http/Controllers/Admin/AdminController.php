@@ -10,6 +10,7 @@ use App\Models\Deposit;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\UserLogin;
+use App\Models\Vehicle;
 use App\Models\Withdrawal;
 use App\Rules\FileTypeValidate;
 use Carbon\Carbon;
@@ -18,7 +19,6 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-
     public function dashboard()
     {
         $pageTitle = 'Dashboard';
@@ -28,6 +28,10 @@ class AdminController extends Controller
         $widget['verified_users']          = User::active()->count();
         $widget['email_unverified_users']  = User::emailUnverified()->count();
         $widget['mobile_unverified_users'] = User::mobileUnverified()->count();
+        $widget['total_vehicle']           = Vehicle::count();
+        $widget['pending_vehicle']         = Vehicle::pending()->count();
+        $widget['approved_vehicle']        = Vehicle::approved()->count();
+        $widget['rejected_vehicle']        = Vehicle::rejected()->count();
 
 
         // user Browsing, Country, Operating Log
@@ -54,11 +58,77 @@ class AdminController extends Controller
         $withdrawals['total_withdraw_rejected'] = Withdrawal::rejected()->count();
         $withdrawals['total_withdraw_charge']   = Withdrawal::approved()->sum('charge');
 
-        return view('admin.dashboard', compact('pageTitle', 'widget', 'chart','deposit','withdrawals'));
+//        $trxReport['date'] = collect([]);
+//        $plusTrx           = Transaction::where('trx_type', '+')->where('created_at', '>=', Carbon::now()->subDays(30))
+//            ->selectRaw("SUM(amount) as amount, DATE_FORMAT(created_at,'%Y-%m-%d') as date")
+//            ->orderBy('created_at')
+//            ->groupBy('date')
+//            ->get();
+//
+//        $plusTrx->map(function ($trxData) use ($trxReport) {
+//            $trxReport['date']->push($trxData->date);
+//        });
+//
+//        $minusTrx = Transaction::where('trx_type', '-')->where('created_at', '>=', Carbon::now()->subDays(30))
+//            ->selectRaw("SUM(amount) as amount, DATE_FORMAT(created_at,'%Y-%m-%d') as date")
+//            ->orderBy('created_at')
+//            ->groupBy('date')
+//            ->get();
+//
+//        $minusTrx->map(function ($trxData) use ($trxReport) {
+//            $trxReport['date']->push($trxData->date);
+//        });
+//
+//        $trxReport['date'] = dateSorting($trxReport['date']->unique()->toArray());
+//
+//        // Monthly Deposit & Withdraw Report Graph
+//        $report['months']                = collect([]);
+//        $report['deposit_month_amount']  = collect([]);
+//        $report['withdraw_month_amount'] = collect([]);
+//
+//        $depositsMonth = Deposit::where('created_at', '>=', Carbon::now()->subYear())
+//            ->where('status', Status::PAYMENT_SUCCESS)
+//            ->selectRaw("SUM( CASE WHEN status = " . Status::PAYMENT_SUCCESS . " THEN amount END) as depositAmount")
+//            ->selectRaw("DATE_FORMAT(created_at,'%M-%Y') as months")
+//            ->orderBy('created_at')
+//            ->groupBy('months')->get();
+//
+//        $depositsMonth->map(function ($depositData) use ($report) {
+//            $report['months']->push($depositData->months);
+//            $report['deposit_month_amount']->push(getAmount($depositData->depositAmount));
+//        });
+//        $withdrawalMonth = Withdrawal::where('created_at', '>=', Carbon::now()->subYear())->where('status', Status::PAYMENT_SUCCESS)
+//            ->selectRaw("SUM( CASE WHEN status = " . Status::PAYMENT_SUCCESS . " THEN amount END) as withdrawAmount")
+//            ->selectRaw("DATE_FORMAT(created_at,'%M-%Y') as months")
+//            ->orderBy('created_at')
+//            ->groupBy('months')->get();
+//        $withdrawalMonth->map(function ($withdrawData) use ($report) {
+//            if (!in_array($withdrawData->months, $report['months']->toArray())) {
+//                $report['months']->push($withdrawData->months);
+//            }
+//            $report['withdraw_month_amount']->push(getAmount($withdrawData->withdrawAmount));
+//        });
+//
+//        $months = $report['months'];
+//
+//        for ($i = 0; $i < $months->count(); ++$i) {
+//            $monthVal = Carbon::parse($months[$i]);
+//            if (isset($months[$i + 1])) {
+//                $monthValNext = Carbon::parse($months[$i + 1]);
+//                if ($monthValNext < $monthVal) {
+//                    $temp           = $months[$i];
+//                    $months[$i]     = Carbon::parse($months[$i + 1])->format('F-Y');
+//                    $months[$i + 1] = Carbon::parse($temp)->format('F-Y');
+//                } else {
+//                    $months[$i] = Carbon::parse($months[$i])->format('F-Y');
+//                }
+//            }
+//        }
+
+       // return view('admin.dashboard', compact('pageTitle', 'widget', 'chart', 'deposit', 'withdrawals', 'depositsMonth', 'withdrawalMonth', 'months', 'trxReport', 'plusTrx', 'minusTrx'));
+
+        return view('admin.dashboard', compact('pageTitle', 'widget', 'chart', 'deposit', 'withdrawals'));
     }
-
-
-
 
     public function depositAndWithdrawReport(Request $request) {
 
@@ -179,7 +249,6 @@ class AdminController extends Controller
         return response()->json($report);
     }
 
-
     private function getAllDates($startDate, $endDate) {
         $dates = [];
         $currentDate = new \DateTime($startDate);
@@ -210,7 +279,6 @@ class AdminController extends Controller
 
         return $months;
     }
-
 
     public function profile()
     {
@@ -277,7 +345,6 @@ class AdminController extends Controller
         $pageTitle = 'Notifications';
         return view('admin.notifications',compact('pageTitle','notifications','hasUnread','hasNotification'));
     }
-
 
     public function notificationRead($id){
         $notification = AdminNotification::findOrFail($id);

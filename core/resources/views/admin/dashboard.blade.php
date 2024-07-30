@@ -9,12 +9,12 @@
             <x-widget
                 style="6"
                 link="{{route('admin.users.all')}}"
-                icon="las la-users"
+                icon="las la-users f-size--56"
                 title="Total Users"
                 value="{{$widget['total_users']}}"
                 bg="primary"
             />
-        </div><!-- dashboard-w1 end -->
+        </div>
         <div class="col-xxl-3 col-sm-6">
             <x-widget
                 style="6"
@@ -47,399 +47,136 @@
         </div><!-- dashboard-w1 end -->
     </div><!-- row end-->
 
-    <div class="row mt-2 gy-4">
-        <div class="col-xxl-6">
-            <div class="card box-shadow3 h-100">
-                <div class="card-body">
-                    <h5 class="card-title">@lang('Deposits')</h5>
-                    <div class="widget-card-wrapper">
-
-                        <div class="widget-card bg--success">
-                            <a href="{{ route('admin.deposit.list') }}" class="widget-card-link"></a>
-                            <div class="widget-card-left">
-                                <div class="widget-card-icon">
-                                    <i class="fas fa-hand-holding-usd"></i>
-                                </div>
-                                <div class="widget-card-content">
-                                    <h6 class="widget-card-amount">{{ showAmount($deposit['total_deposit_amount']) }}</h6>
-                                    <p class="widget-card-title">@lang('Total Deposited')</p>
-                                </div>
-                            </div>
-                            <span class="widget-card-arrow">
-                                <i class="las la-angle-right"></i>
-                            </span>
-                        </div>
-
-                        <div class="widget-card bg--warning">
-                            <a href="{{ route('admin.deposit.pending') }}" class="widget-card-link"></a>
-                            <div class="widget-card-left">
-                                <div class="widget-card-icon">
-                                    <i class="fas fa-spinner"></i>
-                                </div>
-                                <div class="widget-card-content">
-                                    <h6 class="widget-card-amount">{{ $deposit['total_deposit_pending'] }}</h6>
-                                    <p class="widget-card-title">@lang('Pending Deposits')</p>
-                                </div>
-                            </div>
-                            <span class="widget-card-arrow">
-                                <i class="las la-angle-right"></i>
-                            </span>
-                        </div>
-
-                        <div class="widget-card bg--danger">
-                            <a href="{{ route('admin.deposit.rejected') }}" class="widget-card-link"></a>
-                            <div class="widget-card-left">
-                                <div class="widget-card-icon">
-                                    <i class="fas fa-ban"></i>
-                                </div>
-                                <div class="widget-card-content">
-                                    <h6 class="widget-card-amount">{{ $deposit['total_deposit_rejected'] }}</h6>
-                                    <p class="widget-card-title">@lang('Rejected Deposits')</p>
-                                </div>
-                            </div>
-                            <span class="widget-card-arrow">
-                                <i class="las la-angle-right"></i>
-                            </span>
-                        </div>
-
-                        <div class="widget-card bg--primary">
-                            <a href="{{ route('admin.deposit.list') }}" class="widget-card-link"></a>
-                            <div class="widget-card-left">
-                                <div class="widget-card-icon">
-                                    <i class="fas fa-percentage"></i>
-                                </div>
-                                <div class="widget-card-content">
-                                    <h6 class="widget-card-amount">{{ showAmount($deposit['total_deposit_charge']) }}</h6>
-                                    <p class="widget-card-title">@lang('Deposited Charge')</p>
-                                </div>
-                            </div>
-                            <span class="widget-card-arrow">
-                                <i class="las la-angle-right"></i>
-                            </span>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xxl-6">
-            <div class="card box-shadow3 h-100">
-                <div class="card-body">
-                    <h5 class="card-title">@lang('Withdrawals')</h5>
-                    <div class="widget-card-wrapper">
-                        <div class="widget-card bg--success">
-                            <a href="{{ route('admin.withdraw.data.all') }}" class="widget-card-link"></a>
-                            <div class="widget-card-left">
-                                <div class="widget-card-icon">
-                                    <i class="lar la-credit-card"></i>
-                                </div>
-                                <div class="widget-card-content">
-                                    <h6 class="widget-card-amount">{{ showAmount($withdrawals['total_withdraw_amount']) }}</h6>
-                                    <p class="widget-card-title">@lang('Total Withdrawn')</p>
-                                </div>
-                            </div>
-                            <span class="widget-card-arrow">
-                                <i class="las la-angle-right"></i>
-                            </span>
-                        </div>
-
-                        <div class="widget-card bg--warning">
-                            <a href="{{ route('admin.withdraw.data.pending') }}" class="widget-card-link"></a>
-                            <div class="widget-card-left">
-                                <div class="widget-card-icon">
-                                    <i class="fas fa-spinner"></i>
-                                </div>
-                                <div class="widget-card-content">
-                                    <h6 class="widget-card-amount">{{ $withdrawals['total_withdraw_pending'] }}</h6>
-                                    <p class="widget-card-title">@lang('Pending Withdrawals')</p>
-                                </div>
-                            </div>
-                            <span class="widget-card-arrow">
-                                <i class="las la-angle-right"></i>
-                            </span>
-                        </div>
-
-                        <div class="widget-card bg--danger">
-                            <a href="{{ route('admin.withdraw.data.rejected') }}" class="widget-card-link"></a>
-                            <div class="widget-card-left">
-                                <div class="widget-card-icon">
-                                    <i class="las la-times-circle"></i>
-                                </div>
-                                <div class="widget-card-content">
-                                    <h6 class="widget-card-amount">{{ $withdrawals['total_withdraw_rejected'] }}</h6>
-                                    <p class="widget-card-title">@lang('Rejected Withdrawals')</p>
-                                </div>
-                            </div>
-                            <span class="widget-card-arrow">
-                                <i class="las la-angle-right"></i>
-                            </span>
-                        </div>
-
-                        <div class="widget-card bg--primary">
-                            <a href="{{ route('admin.withdraw.data.all') }}" class="widget-card-link"></a>
-                            <div class="widget-card-left">
-                                <div class="widget-card-icon">
-                                    <i class="las la-percent"></i>
-                                </div>
-                                <div class="widget-card-content">
-                                    <h6 class="widget-card-amount">{{ showAmount($withdrawals['total_withdraw_charge']) }}</h6>
-                                    <p class="widget-card-title">@lang('Withdrawal Charge')</p>
-                                </div>
-                            </div>
-                            <span class="widget-card-arrow">
-                                <i class="las la-angle-right"></i>
-                            </span>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
     <div class="row gy-4 mt-2">
         <div class="col-xxl-3 col-sm-6">
             <x-widget
-                style="7"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
+                style="6"
+                link="{{ route('admin.deposit.list') }}"
+                title="Total Payment"
+                icon="fas fa-hand-holding-usd"
+                value="{{ showAmount($deposit['total_deposit_amount'], currencyFormat: true) }}"
                 bg="success"
             />
         </div><!-- dashboard-w1 end -->
         <div class="col-xxl-3 col-sm-6">
             <x-widget
-                style="7"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
+                style="6"
+                link="{{ route('admin.deposit.pending') }}"
+                title="Pending Payments"
+                icon="fas fa-spinner"
+                value="{{ $deposit['total_deposit_pending'] }}"
                 bg="warning"
             />
         </div><!-- dashboard-w1 end -->
         <div class="col-xxl-3 col-sm-6">
             <x-widget
-                style="7"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
+                style="6"
+                link="{{ route('admin.deposit.rejected') }}"
+                title="Rejected Payments"
+                icon="fas fa-ban"
+                value="{{ $deposit['total_deposit_rejected'] }}"
                 bg="danger"
             />
         </div><!-- dashboard-w1 end -->
         <div class="col-xxl-3 col-sm-6">
             <x-widget
-                style="7"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
+                style="6"
+                link="{{ route('admin.deposit.list') }}"
+                title="Payment Charge"
+                icon="fas fa-percentage"
+                value="{{ showAmount($deposit['total_deposit_charge'], currencyFormat: true) }}"
                 bg="primary"
             />
         </div><!-- dashboard-w1 end -->
     </div><!-- row end-->
 
     <div class="row gy-4 mt-2">
-        <div class="col-xxl-2 col-lg-4 col-sm-6">
+        <div class="col-xxl-3 col-sm-6">
             <x-widget
-                style="5"
-                link="#"
-                icon="las la-users"
-                title="Demo"
-                value="xxx"
-                bg="primary"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-2 col-lg-4 col-sm-6">
-            <x-widget
-                style="5"
-                link="#"
-                icon="las la-users"
-                title="Demo"
-                value="xxx"
-                bg="1"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-2 col-lg-4 col-sm-6">
-            <x-widget
-                style="5"
-                link="#"
-                icon="las la-users"
-                title="Demo"
-                value="xxx"
+                style="6"
+                link="{{ route('admin.withdraw.data.all') }}"
+                icon="las la-credit-card"
+                title="Total Withdrawn"
+                value="{{ showAmount($withdrawals['total_withdraw_amount']) }}"
                 bg="2"
             />
         </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-2 col-lg-4 col-sm-6">
+        <div class="col-xxl-3 col-sm-6">
             <x-widget
-                style="5"
-                link="#"
-                icon="las la-users"
-                title="Demo"
-                value="xxx"
+                style="6"
+                link="{{ route('admin.withdraw.data.pending') }}"
+                icon="las la-sync"
+                title="Pending Withdrawals"
+                value="{{ $withdrawals['total_withdraw_pending'] }}"
                 bg="3"
             />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-2 col-lg-4 col-sm-6">
+        </div>
+
+        <div class="col-xxl-3  col-sm-6">
             <x-widget
-                style="5"
-                link="#"
-                icon="las la-users"
-                title="Demo"
-                value="xxx"
+                style="6"
+                link="{{ route('admin.withdraw.data.rejected') }}"
+                icon="las la-times-circle"
+                title="Rejected Withdrawals"
+                value="{{ $withdrawals['total_withdraw_rejected'] }}"
+                bg="danger"
+            />
+        </div><!-- dashboard-w1 end -->
+        <div class="col-xxl-3 col-lg-4 col-sm-6">
+            <x-widget
+                style="6"
+                link="{{ route('admin.withdraw.data.all') }}"
+                icon="las la-percent"
+                title="Withdrawal Charge"
+                value="{{ showAmount($withdrawals['total_withdraw_charge'], currencyFormat: true) }}"
                 bg="4"
             />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-2 col-lg-4 col-sm-6">
-            <x-widget
-                style="5"
-                link="#"
-                icon="las la-users"
-                title="Demo"
-                value="xxx"
-                bg="5"
-            />
-        </div><!-- dashboard-w1 end -->
+        </div>
     </div><!-- row end-->
 
     <div class="row gy-4 mt-2">
         <div class="col-xxl-3 col-sm-6">
             <x-widget
                 style="6"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
-                bg="success"
-                outline="true"
+                link="{{ route('admin.vehicle.index') }}"
+                title="Total Vehicle"
+                icon="las la-car"
+                value="{{ $widget['total_vehicle'] }}"
+                bg="primary"
             />
         </div><!-- dashboard-w1 end -->
         <div class="col-xxl-3 col-sm-6">
             <x-widget
                 style="6"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
+                link="{{ route('admin.vehicle.pending') }}"
+                title="Pending Vehicle"
+                icon="las la-hourglass-end"
+                value="{{ $widget['pending_vehicle'] }}"
                 bg="warning"
-                outline="true"
             />
         </div><!-- dashboard-w1 end -->
         <div class="col-xxl-3 col-sm-6">
             <x-widget
                 style="6"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
-                bg="danger"
-                outline="true"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="6"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
-                bg="primary"
-                outline="true"
-            />
-        </div><!-- dashboard-w1 end -->
-    </div><!-- row end-->
-
-    <div class="row gy-4 mt-2">
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="3"
-                link="#"
-                icon="las la-users"
-                title="Demo"
-                value="xxx"
-                bg="primary"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="3"
-                link="#"
-                icon="las la-users"
-                title="Demo"
-                value="xxx"
-                bg="1"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="3"
-                link="#"
-                icon="las la-users"
-                title="Demo"
-                value="xxx"
-                bg="14"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="3"
-                link="#"
-                icon="las la-users"
-                title="Demo"
-                value="xxx"
-                bg="19"
-            />
-        </div><!-- dashboard-w1 end -->
-    </div><!-- row end-->
-
-    <div class="row gy-4 mt-2">
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="7"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
+                link="{{ route('admin.vehicle.approved') }}"
+                title="Approved Vehicle"
+                icon="las la-check-circle"
+                value="{{ $widget['approved_vehicle'] }}"
                 bg="success"
-                type="2"
             />
         </div><!-- dashboard-w1 end -->
         <div class="col-xxl-3 col-sm-6">
             <x-widget
-                style="7"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
-                bg="warning"
-                type="2"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="7"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
+                style="6"
+                link="{{ route('admin.vehicle.rejected') }}"
+                title="Rejected Vehicle"
+                icon="las la-times-circle"
+                value="{{ $widget['rejected_vehicle'] }}"
                 bg="danger"
-                type="2"
             />
         </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="7"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
-                bg="primary"
-                type="2"
-            />
-        </div><!-- dashboard-w1 end -->
-    </div>
+    </div><!-- row end-->
 
     <div class="row mb-none-30 mt-30">
         <div class="col-xl-6 mb-30">
