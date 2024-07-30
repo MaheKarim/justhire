@@ -13,7 +13,8 @@ class KycController extends Controller
     {
         $pageTitle = 'KYC Setting';
         $form = Form::where('act','kyc')->first();
-        return view('admin.kyc.setting',compact('pageTitle','form'));
+        $route     = route('admin.kyc.setting.update');
+        return view('admin.kyc.setting',compact('pageTitle','form', 'route'));
     }
 
     public function settingUpdate(Request $request)
@@ -25,6 +26,29 @@ class KycController extends Controller
         $formProcessor->generate('kyc',$exist,'act');
 
         $notify[] = ['success','KYC data updated successfully'];
+        return back()->withNotify($notify);
+    }
+
+    public function storeSetting() {
+        $pageTitle = 'Vehicle Store KYC Setting';
+        $form      = Form::where('act', 'store_kyc')->first();
+        $route     = route('admin.kyc.store.setting.update');
+        return view('admin.kyc.setting', compact('pageTitle', 'form', 'route'));
+    }
+
+    public function storeSettingUpdate(Request $request) {
+        $formProcessor       = new FormProcessor();
+        $generatorValidation = $formProcessor->generatorValidation();
+        $request->validate($generatorValidation['rules'], $generatorValidation['messages']);
+        $exist = Form::where('act', 'store_kyc')->first();
+        if ($exist) {
+            $isUpdate = true;
+        } else {
+            $isUpdate = false;
+        }
+        $formProcessor->generate('store_kyc', $isUpdate, 'act');
+
+        $notify[] = ['success', 'KYC data updated successfully'];
         return back()->withNotify($notify);
     }
 }

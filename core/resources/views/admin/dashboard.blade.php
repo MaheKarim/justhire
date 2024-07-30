@@ -57,6 +57,7 @@
                 icon="fas fa-hand-holding-usd"
                 value="{{ showAmount($deposit['total_deposit_amount'], currencyFormat: true) }}"
                 bg="success"
+                outline="true"
             />
         </div><!-- dashboard-w1 end -->
         <div class="col-xxl-3 col-sm-6">
@@ -67,6 +68,7 @@
                 icon="fas fa-spinner"
                 value="{{ $deposit['total_deposit_pending'] }}"
                 bg="warning"
+                outline="true"
             />
         </div><!-- dashboard-w1 end -->
         <div class="col-xxl-3 col-sm-6">
@@ -77,6 +79,7 @@
                 icon="fas fa-ban"
                 value="{{ $deposit['total_deposit_rejected'] }}"
                 bg="danger"
+                outline="true"
             />
         </div><!-- dashboard-w1 end -->
         <div class="col-xxl-3 col-sm-6">
@@ -87,6 +90,7 @@
                 icon="fas fa-percentage"
                 value="{{ showAmount($deposit['total_deposit_charge'], currencyFormat: true) }}"
                 bg="primary"
+                outline="true"
             />
         </div><!-- dashboard-w1 end -->
     </div><!-- row end-->
@@ -144,6 +148,7 @@
                 icon="las la-car"
                 value="{{ $widget['total_vehicle'] }}"
                 bg="primary"
+                outline="true"
             />
         </div><!-- dashboard-w1 end -->
         <div class="col-xxl-3 col-sm-6">
@@ -154,6 +159,7 @@
                 icon="las la-hourglass-end"
                 value="{{ $widget['pending_vehicle'] }}"
                 bg="warning"
+                outline="true"
             />
         </div><!-- dashboard-w1 end -->
         <div class="col-xxl-3 col-sm-6">
@@ -164,6 +170,7 @@
                 icon="las la-check-circle"
                 value="{{ $widget['approved_vehicle'] }}"
                 bg="success"
+                outline="true"
             />
         </div><!-- dashboard-w1 end -->
         <div class="col-xxl-3 col-sm-6">
@@ -174,6 +181,7 @@
                 icon="las la-times-circle"
                 value="{{ $widget['rejected_vehicle'] }}"
                 bg="danger"
+                outline="true"
             />
         </div><!-- dashboard-w1 end -->
     </div><!-- row end-->

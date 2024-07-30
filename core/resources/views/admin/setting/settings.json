@@ -69,6 +69,13 @@
         "icon": "las la-user-check",
         "route_name": "admin.kyc.setting"
     },
+    "store_kyc_setting": {
+        "keyword": ["Store KYC","Store kyc verification", "Store verification", "Store KYC settings", "Store", "KYC configuration"],
+        "title": "Store KYC Setting",
+        "subtitle": "Configure the dynamic input field of your store for collect information of your client if you need.",
+        "icon": "las la-check-square",
+        "route_name": "admin.kyc.store.setting"
+    },
     "social_login_setting": {
         "keyword": ["social login", "social media", "authentication", "social media login", "social media authentication","facebook login","google login","linkedin login"],
         "title": "Social Login Setting",

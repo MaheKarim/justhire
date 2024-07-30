@@ -310,7 +310,9 @@ Route::middleware('admin')->group(function () {
     //KYC setting
     Route::controller('KycController')->group(function(){
         Route::get('kyc-setting','setting')->name('kyc.setting');
-        Route::post('kyc-setting','settingUpdate');
+        Route::post('kyc-setting','settingUpdate')->name('kyc.setting.update');
+        Route::get('kyc/store', 'storeSetting')->name('kyc.store.setting');
+        Route::post('kyc/store', 'storeSettingUpdate')->name('kyc.store.setting.update');
     });
 
     //Notification Setting
