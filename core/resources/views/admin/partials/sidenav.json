@@ -70,6 +70,90 @@
         "route_name": "admin.brand.index",
         "menu_active": "admin.brand.index.*"
     },
+    "manage_stores": {
+        "title": "Manage Stores",
+        "icon": "las la-store",
+        "counter":["pendingStoreCount"],
+        "menu_active": "admin.store*",
+        "submenu": [{
+            "keyword": [
+            "Store",
+            "Manage Store",
+            "Store Management",
+            "Store Control",
+            "Store Status",
+            "Store Activity"
+          ],
+            "title": "All Stores",
+            "route_name": "admin.store.index",
+            "menu_active": "admin.store.index*"
+        },{
+            "keyword": ["Pending Store", "Manage Store", "Store Management", "Store Control", "Store Status", "Store Activity"],
+            "title": "Pending Stores",
+            "route_name": "admin.store.pending",
+            "menu_active": "admin.store.pending*",
+            "counter": "pendingStoreCount"
+        }, {
+            "keyword": [
+            "Approved Store",
+            "Manage Store",
+            "Approved Management",
+            "Approved Store Control",
+            "Store Approved",
+            "Approved Activity"
+          ],
+            "title": "Approved Stores",
+            "route_name": "admin.store.approved",
+            "menu_active": "admin.store.approved*"
+        }, {
+            "keyword": ["Rejected Store", "Manage Store", "Store Management", "Store Control", "Store Status", "Store Activity"],
+            "title": "Rejected Stores",
+            "route_name": "admin.store.rejected",
+            "menu_active": "admin.store.rejected*"
+        }]
+    },
+    "manage_vehicles": {
+        "title": "Manage Vehicles",
+        "icon": "las la-car",
+        "counter": ["pendingVehicleCount"],
+        "menu_active": "admin.vehicle*",
+        "submenu": [{
+            "keyword": ["All Vehicles", "Manage Vehicles", "Vehicle Management", "Vehicle Control", "Vehicle Status", "Vehicle Activity"],
+            "title": "All Vehicles",
+            "route_name": "admin.vehicle.index",
+            "menu_active": "admin.vehicle.index*"
+        }, {
+            "keyword": ["Pending Vehicles", "Manage Vehicles", "Vehicle Management", "Vehicle Control", "Vehicle Status", "Vehicle Activity"],
+            "title": "Pending Vehicles",
+            "route_name": "admin.vehicle.pending",
+            "menu_active": "admin.vehicle.pending*",
+            "counter": "pendingVehicleCount"
+        }, {
+            "keyword": [
+            "Approved Vehicles",
+            "Manage Vehicles",
+            "Vehicle Management",
+            "Vehicle Control",
+            "Vehicle Status",
+            "Vehicle Activity"
+          ],
+            "title": "Approved Vehicles",
+            "route_name": "admin.vehicle.approved",
+            "menu_active": "admin.vehicle.approved*"
+        }, {
+            "keyword": [
+            "Rejected Vehicles",
+            "Manage Vehicles",
+            "Vehicle Management",
+            "Vehicle Control",
+            "Vehicle Status",
+            "Vehicle Activity"
+          ],
+            "title": "Rejected Vehicles",
+            "route_name": "admin.vehicle.rejected",
+            "menu_active": "admin.vehicle.rejected*"
+        }]
+    },
     "manage_users": {
         "title": "Manage Users",
         "icon": "las la-users",
