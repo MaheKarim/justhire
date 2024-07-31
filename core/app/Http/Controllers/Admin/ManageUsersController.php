@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Deposit;
 use App\Models\NotificationLog;
 use App\Models\NotificationTemplate;
+use App\Models\Rental;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Vehicle;
 use App\Models\Withdrawal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -108,8 +110,11 @@ class ManageUsersController extends Controller
         $totalDeposit = Deposit::where('user_id',$user->id)->successful()->sum('amount');
         $totalWithdrawals = Withdrawal::where('user_id',$user->id)->approved()->sum('amount');
         $totalTransaction = Transaction::where('user_id',$user->id)->count();
+        $totalVehicle     = Vehicle::where('user_id', $user->id)->count();
+        $totalRented      = Rental::where('vehicle_user_id', $user->id)->completed()->sum('price');
+
         $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
-        return view('admin.users.detail', compact('pageTitle', 'user','totalDeposit','totalWithdrawals','totalTransaction','countries'));
+        return view('admin.users.detail', compact('pageTitle', 'user','totalDeposit','totalWithdrawals','totalTransaction','countries', 'totalVehicle', 'totalRented'));
     }
 
 
