@@ -1,14 +1,14 @@
 @extends($activeTemplate . 'layouts.master')
 @section('content')
-    <div class="container ">
-        <div class="row justify-content-center">
+    <div class="card custom--card ">
+        <div class="card-body">
             <div class="col-lg-9">
                 <form action="{{ route('user.withdraw.money') }}" method="post" class="withdraw-form">
                     @csrf
                     <div class="gateway-card">
                         <div class="row justify-content-center gy-sm-4 gy-3">
                             <div class="col-12">
-                                <h5 class="payment-card-title">@lang('Withdraw')</h5>
+                                <h5 class="payment-card-title text--dark">@lang('Withdraw')</h5>
                             </div>
                             <div class="col-lg-6">
                                 <div class="payment-system-list is-scrollable gateway-option-list">
