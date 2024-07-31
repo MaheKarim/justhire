@@ -35,7 +35,7 @@
                                 <div class="product-info-bottom">
                                     <p class="product-info-bottom-title">@lang('Rental Price')</p>
                                     <h6 class="product-info-bottom-price">
-                                        {{ showAmount($vehicle->price) }} <small class="currrency">{{ __($general->cur_text) }} / <sub class="fw-bold">@lang('DAY')</sub></small>
+                                        {{ showAmount($vehicle->price) }} <small class="currrency">{{ __(gs('cur_text')) }} / <sub class="fw-bold">@lang('DAY')</sub></small>
                                     </h6>
                                 </div>
                             </div>
@@ -187,7 +187,7 @@
         </div>
     </div>
 
-    <x-confirmation-modal />
+    <x-confirmation-modal/>
 @endsection
 
 @push('breadcrumb-plugins')

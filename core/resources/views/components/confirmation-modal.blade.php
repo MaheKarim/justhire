@@ -15,7 +15,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn--dark" data-bs-dismiss="modal">@lang('No')</button>
-                    <button type="submit" class="btn @if('isFrontendSubmit') btn--base @else btn--primary @endif">@lang('Yes')</button>
+                    <button type="submit" class="btn @if($isFrontendSubmit) btn--base @else btn--primary @endif">@lang('Yes')</button>
                 </div>
             </form>
         </div>

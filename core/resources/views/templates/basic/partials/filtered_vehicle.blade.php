@@ -47,7 +47,7 @@
                         </div>
                         <div class="product-info__content">
                             <span class="product-info__title">@lang('Rental Price')</span>
-                            <p class="product-info__price"><span>{{ showAmount($vehicle->price) }}</span>  {{ __($general->cur_text) }}/ @lang('Day')</p>
+                            <p class="product-info__price"><span>{{ showAmount($vehicle->price) }}</span>  {{ __(gs('cur_text')) }}/ @lang('Day')</p>
                         </div>
                     </div>
                     <a href="{{ route('vehicle.detail', $vehicle->id) }}" class="btn btn--gradient product-info__btn">@lang('Rent Now')</a>

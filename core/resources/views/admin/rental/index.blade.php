@@ -31,7 +31,7 @@
 
                                         <td>{{ $rental->rent_no }}</td>
                                         <td>{{ __(@$rental->pickupZone->name) }} <br>{{ __(@$rental->dropZone->name) }}</td>
-                                        <td>{{ showAmount($rental->price) }} {{ __($general->cur_text) }}</td>
+                                        <td>{{ showAmount($rental->price) }}</td>
                                         @if (request()->routeIs('admin.rental.index'))
                                             <td>
                                                 @php

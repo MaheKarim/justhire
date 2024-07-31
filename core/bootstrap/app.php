@@ -9,6 +9,7 @@ use App\Http\Middleware\RedirectIfAdmin;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\RedirectIfNotAdmin;
 use App\Http\Middleware\RegistrationStep;
+use App\Http\Middleware\VehicleStoreMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -73,6 +74,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'kyc' => KycMiddleware::class,
             'registration.complete' => RegistrationStep::class,
             'maintenance' => MaintenanceMode::class,
+            'vehicle.store' => VehicleStoreMiddleware::class,
         ]);
 
         $middleware->validateCsrfTokens(

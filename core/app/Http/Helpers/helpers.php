@@ -305,6 +305,10 @@ function getFileExt($key)
     return fileManager()->$key()->extensions;
 }
 
+function getFileThumb($key) {
+    return fileManager()->$key()->size;
+}
+
 function diffForHumans($date)
 {
     $lang = session()->get('lang');

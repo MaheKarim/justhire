@@ -166,7 +166,7 @@ class VehicleController extends Controller {
             'mileage'               => 'required|string|max:40',
             'vehicle_condition'     => 'required|string|in:new,used',
             'transmission_type'     => 'required|string|in:automatic,manual',
-            'fuel_type'             => 'required|string|in:gasholine,diesel,electric',
+            'fuel_type'             => 'required|string|in:gasoline,diesel,electric,petrol',
             'seat'                  => 'required|integer|gte:0',
             'price'                 => 'required|numeric|gte:0',
             'total_run'             => 'required|numeric|gte:0',
