@@ -29,7 +29,7 @@
                                 <td>{{ __(@$rental->rent_no) }}</td>
                                 <td>{{ @$rental->vehicle->brand->name }}</td>
                                 <td>{{ @$rental->pickupPoint->name }} <br> {{ @$rental->pickupZone->name }}</td>
-                                <td>{{ showAmount(@$rental->price) }} {{ __($general->cur_text) }}</td>
+                                <td>{{ showAmount(@$rental->price, currencyFormat: false) }}</td>
                                 <td>{{ @$rental->end_date }}</td>
                                 <td>
                                     @php

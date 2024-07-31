@@ -46,7 +46,7 @@
                                     <div class="product-info-bottom">
                                         <p class="product-info-bottom-title">@lang('Rental Price')</p>
                                         <h6 class="product-info-bottom-price">
-                                            {{ showAmount($rent->price) }} <small class="currrency">{{ __($general->cur_text) }}</small>
+                                            {{ showAmount($rent->price) }} <small class="currrency">{{ __(gs('cur_text')) }}</small>
                                         </h6>
                                     </div>
                                 </div>

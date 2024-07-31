@@ -91,7 +91,7 @@
                                 </div>
                                 <div class="product-info-bottom">
                                     <strong>@lang('Rental Price')</strong>
-                                    <h6 class="product-info-bottom-price">{{ showAmount(@$rental->price) }} {{ __($general->cur_text) }}</h6>
+                                    <h6 class="product-info-bottom-price">{{ showAmount(@$rental->price, currencyFormat: false) }}</h6>
                                 </div>
                             </div>
                             <div class="col-md-6">

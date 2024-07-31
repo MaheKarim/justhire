@@ -29,7 +29,7 @@
                                 <td>{{ __(@$rental->vehicle->brand->name) }}</td>
                                 <td>{{ @$rental->rent_no }}</td>
                                 <td>{{ @$rental->user->username }}</td>
-                                <td>{{ showAmount(@$rental->price) }} {{ __($general->cur_text) }}</td>
+                                <td>{{ showAmount(@$rental->price) }} {{ __(gs('cur_text')) }}</td>
                                 <td>{{ @$rental->end_date }}</td>
                                 <td>
                                     @php

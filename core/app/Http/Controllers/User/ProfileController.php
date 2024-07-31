@@ -31,6 +31,15 @@ class ProfileController extends Controller
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
 
+        if ($request->hasFile('image')) {
+            try {
+                $user->image = fileUploader($request->image, getFilePath('userProfile'), getFileSize('userProfile'), @$user->image);
+            } catch (\Exception $exp) {
+                $notify[] = ['error', 'Couldn\'t upload your image'];
+                return back()->withNotify($notify);
+            }
+        }
+
         $user->address = $request->address;
         $user->city = $request->city;
         $user->state = $request->state;
