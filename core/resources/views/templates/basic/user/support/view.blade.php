@@ -1,8 +1,12 @@
 @extends($activeTemplate.'layouts.'.$layout)
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
+    @if ($layout == 'frontend')
+        <div class="pt-60 pb-120">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                    </div>
+                    @endif
                 <div class="card custom--card">
                     <div class="card-header card-header-bg d-flex flex-wrap justify-content-between align-items-center">
                         <h5 class="text-dark mt-0">
@@ -39,7 +43,6 @@
                         </form>
                     </div>
                 </div>
-
                 <div class="card mt-4">
                     <div class="card-body">
                         @forelse($messages as $message)
@@ -89,11 +92,11 @@
                         @endforelse
                     </div>
                 </div>
-
+                    @if ($layout == 'frontend')
+                </div>
             </div>
         </div>
-    </div>
-
+        @endif
     <x-confirmation-modal isFrontendSubmit="true"/>
 @endsection
 @push('style')
