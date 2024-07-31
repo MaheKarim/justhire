@@ -11,6 +11,7 @@ use App\Models\Rental;
 use App\Models\SupportTicket;
 use App\Models\User;
 use App\Models\Vehicle;
+use App\Models\VehicleType;
 use App\Models\Withdrawal;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\ServiceProvider;
@@ -51,6 +52,7 @@ class AppServiceProvider extends ServiceProvider
         $viewShare['activeTemplate'] = $activeTemplate;
         $viewShare['activeTemplateTrue'] = activeTemplate(true);
         $viewShare['emptyMessage'] = 'Data not found';
+        $viewShare['vehicleTypes'] = VehicleType::active()->with('vehicleClass')->orderBy('name')->get();
         view()->share($viewShare);
 
 

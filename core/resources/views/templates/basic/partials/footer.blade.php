@@ -40,7 +40,7 @@
                         <ul class="footer-menu">
                             @foreach (@$policyPages as $policy)
                                 <li class="footer-menu__item">
-                                    <a href="{{ route('policy.pages', [slug(@$policy->data_values->title), @$policy->id]) }}" class="footer-menu__link">{{ __(@$policy->data_values->title) }}</a>
+                                    <a href="{{ route('policy.pages', slug(@$policy->data_values->title)) }}" class="footer-menu__link">{{ __(@$policy->data_values->title) }}</a>
                                 </li>
                             @endforeach
                         </ul>

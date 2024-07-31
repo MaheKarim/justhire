@@ -133,7 +133,7 @@ class SiteController extends Controller
     public function blogDetails($slug)
     {
         $blog = Frontend::where('slug',$slug)->where('data_keys','blog.element')->firstOrFail();
-        $latestBlogs = Frontend::where('$slug', '!=', $slug)->where('data_keys', 'blog.element')->orderBy('id', 'desc')->limit(5)->get();
+        $latestBlogs = Frontend::where('slug', '!=', $slug)->where('data_keys', 'blog.element')->orderBy('id', 'desc')->limit(5)->get();
         $pageTitle = $blog->data_values->title;
         $seoContents = $blog->seo_content;
         $seoImage = @$seoContents->image ? frontendImage('blog',$seoContents->image,getFileSize('seo'),true) : null;

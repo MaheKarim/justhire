@@ -48,7 +48,7 @@
                     <div class="contact-form">
                         <div class="contact-form-heading">
                             <h2 class="contact-form-heading__title">{{ __(@$contactContent->data_values->title) }}</h2>
-                            <p class="contact-form-heading__desc">{{ __(@$contactContent->data_values->short_Details) }}</p>
+                            <p class="contact-form-heading__desc">{{ __(@$contactContent->data_values->short_details) }}</p>
                         </div>
                         <form method="post" action="" class="verify-gcaptcha">
                             @csrf
@@ -79,9 +79,9 @@
         </div>
     </section>
 
-    @if ($sections != null)
-        @foreach (json_decode($sections) as $sec)
-            @include($activeTemplate . 'sections.' . $sec)
+    @if($sections != null)
+        @foreach(json_decode($sections) as $sec)
+            @include($activeTemplate.'sections.'.$sec)
         @endforeach
     @endif
 @endsection

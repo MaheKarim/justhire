@@ -33,7 +33,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="fb-comments" data-href="{{ route('blog.details', [slug($blog->data_values->title), $blog->id]) }}" data-numposts="5"></div>
+                    <div class="fb-comments" data-href="{{ route('blog.details', slug($blog->data_values->title)) }}" data-numposts="5"></div>
                 </div>
                 <div class="col-xl-3 col-lg-4">
                     <div class="blog-sidebar-wrapper">
@@ -43,12 +43,12 @@
                             @foreach ($latestBlogs as $blog)
                                 <div class="latest-blog">
                                     <div class="latest-blog__thumb">
-                                        <a href="{{ route('blog.details', [slug(@$blog->data_values->title), $blog->id]) }}">
+                                        <a href="{{ route('blog.details', slug(@$blog->data_values->title)) }}">
                                             <img src="{{ getImage('assets/images/frontend/blog/thumb_' . @$blog->data_values->image, '485x245') }}" class="fit-image" alt="@lang('image')">
                                         </a>
                                     </div>
                                     <div class="latest-blog__content">
-                                        <h6 class="latest-blog__title"><a href="{{ route('blog.details', [slug(@$blog->data_values->title), $blog->id]) }}">{{ __(@$blog->data_values->title) }}</a></h6>
+                                        <h6 class="latest-blog__title"><a href="{{ route('blog.details', slug(@$blog->data_values->title)) }}">{{ __(@$blog->data_values->title) }}</a></h6>
                                         <span class="latest-blog__date fs-13">{{ showDateTime($blog->created_at) }}</span>
                                     </div>
                                 </div>

@@ -369,9 +369,8 @@
         "no_selection": true,
         "name": "KYC Content",
         "content": {
-            "required": "text",
-            "pending": "text",
-            "reject": "text"
+            "required": "textarea",
+            "pending": "textarea"
         }
     },
     "banned": {
