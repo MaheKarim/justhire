@@ -1,43 +1,40 @@
 @php
-    $text = isset($register) ? 'Register' : 'Login';
+    $type = isset($register) ? 'Register' : 'Login';
 @endphp
-@if (@gs('socialite_credentials')->google->status == Status::ENABLE)
-<div class="mb-3 continue-google">
-    <a href="{{ route('user.social.login', 'google') }}" class="btn w-100 social-login-btn">
-        <span class="google-icon">
-        <img src="{{ asset($activeTemplateTrue."images/google.svg") }}" alt="Google">
-        </span> @lang("$text with Google")
-    </a>
-</div>
-@endif
-@if (@gs('socialite_credentials')->facebook->status == Status::ENABLE)
-<div class="mb-3 continue-facebook">
-    <a href="{{ route('user.social.login', 'facebook') }}" class="btn w-100 social-login-btn">
-        <span class="facebook-icon">
-        <img src="{{ asset($activeTemplateTrue."images/facebook.svg") }}" alt="Facebook">
-        </span> @lang("$text with Facebook")
-    </a>
-</div>
-@endif
-@if (@gs('socialite_credentials')->linkedin->status == Status::ENABLE)
-<div class="continue-facebook mb-3">
-    <a href="{{ route('user.social.login', 'linkedin') }}" class="btn w-100 social-login-btn">
-        <span class="facebook-icon">
-        <img src="{{ asset($activeTemplateTrue."images/linkdin.svg") }}" alt="Linkedin">
-        </span> @lang("$text with Linkedin")
-    </a>
-</div>
-@endif
-
 @if (@gs('socialite_credentials')->linkedin->status || @gs('socialite_credentials')->facebook->status == Status::ENABLE || @gs('socialite_credentials')->google->status == Status::ENABLE)
-<div class="text-center">
-    <span>@lang('OR')</span>
-</div>
+    <div class="auth-devide">
+        <span>OR</span>
+    </div>
+    <div class="auth--btn-wrapper">
+        @if (@gs('socialite_credentials')->google->status == Status::ENABLE)
+            <div class="auth--btn-inner">
+                <a class="btn auth--btn w-100" href="{{ route('user.social.login', 'google') }}">
+                    <span class="icon">
+                        <img src="{{ asset($activeTemplateTrue . 'images/google.svg') }}" alt="">
+                    </span>
+                    @lang('Google')
+                </a>
+            </div>
+        @endif
+            @if (@gs('socialite_credentials')->facebook->status == Status::ENABLE)
+            <div class="auth--btn-inner">
+                <a class="btn auth--btn w-100" href="{{ route('user.social.login', 'facebook') }}">
+                    <span class="icon">
+                        <img src="{{ asset($activeTemplateTrue . 'images/facebook.svg') }}" alt="">
+                    </span>
+                    @lang('Facebook')
+                </a>
+            </div>
+        @endif
+            @if (@gs('socialite_credentials')->linkedin->status == Status::ENABLE)
+            <div class="auth--btn-inner">
+                <a class="btn auth--btn w-100" href="{{ route('user.social.login', 'linkedin') }}">
+                    <span class="icon">
+                        <img src="{{ asset($activeTemplateTrue . 'images/linkdin.svg') }}" alt="">
+                    </span>
+                    @lang('Linkedin')
+                </a>
+            </div>
+        @endif
+    </div>
 @endif
-@push('style')
-<style>
-    .social-login-btn{
-        border: 1px solid #cbc4c4;
-    }
-</style>
-@endpush

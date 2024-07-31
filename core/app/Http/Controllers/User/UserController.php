@@ -8,7 +8,11 @@ use App\Lib\FormProcessor;
 use App\Lib\GoogleAuthenticator;
 use App\Models\DeviceToken;
 use App\Models\Form;
+use App\Models\Rental;
 use App\Models\Transaction;
+use App\Models\Vehicle;
+use App\Models\Withdrawal;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -18,12 +22,20 @@ class UserController extends Controller
     public function home()
     {
         $pageTitle = 'Dashboard';
-        return view('Template::user.dashboard', compact('pageTitle'));
+        $user      = auth()->user();
+
+        $zones = Zone::where('id', '!=', $user->zone_id)->active()->get();
+
+        $rentals                    = Rental::where('vehicle_user_id', auth()->id())->with(['user:id,username', 'vehicle.brand'])->limit(5)->get();
+        $widget['total_vehicle']    = Vehicle::where('user_id', $user->id)->count();
+        $widget['total_income']     = Rental::where('vehicle_user_id', $user->id)->completed()->sum('price');
+        $widget['total_withdrawan'] = Withdrawal::approved()->where('user_id', $user->id)->sum('amount');
+        return view('Template::user.dashboard', compact('pageTitle', 'user', 'zones', 'rentals', 'widget'));
     }
 
     public function depositHistory(Request $request)
     {
-        $pageTitle = 'Deposit History';
+        $pageTitle = 'Payment History';
         $deposits = auth()->user()->deposits()->searchable(['trx'])->with(['gateway'])->orderBy('id','desc')->paginate(getPaginate());
         return view('Template::user.deposit_history', compact('pageTitle', 'deposits'));
     }
@@ -197,7 +209,6 @@ class UserController extends Controller
         return to_route('user.home');
     }
 
-
     public function addDeviceToken(Request $request)
     {
 
@@ -238,6 +249,34 @@ class UserController extends Controller
         header('Content-Disposition: attachment; filename="' . $title);
         header("Content-Type: " . $mimetype);
         return readfile($filePath);
+    }
+
+    public function rentalList() {
+        $pageTitle = 'On Going Rental List';
+        $rentals   = Rental::ongoing()->where('drop_off_location_id', auth()->id())->searchable(['rent_no'])->orderBy('id', 'desc')->paginate(getPaginate());
+        return view('Template::user.rental.ongoing', compact('pageTitle', 'rentals'));
+    }
+
+    public function rentalDetail($id) {
+        $pageTitle = 'Rental Detail';
+        $rent      = Rental::ongoing()->where('drop_off_location_id', auth()->id())->findOrFail($id);
+        return view('Template::user.rental.detail', compact('pageTitle', 'rent'));
+    }
+
+    public function rentedHistory(Request $request) {
+        $pageTitle = 'My Rented History';
+
+        $rentals = Rental::where('user_id', auth()->id())->with(['vehicle' => function ($query) {
+            $query->with('brand', 'user');
+        }])->searchable(['rent_no'])->with('pickupZone', 'pickupPoint')->orderBy('id', 'desc')->paginate(getPaginate());
+
+        return view('Template::user.rented.history', compact('pageTitle', 'rentals'));
+    }
+
+    public function rentedDetail($id) {
+        $pageTitle = 'Rental Detail';
+        $rent      = Rental::where('user_id', auth()->id())->with('pickupZone')->findOrFail($id);
+        return view('Template::user.rented.detail', compact('pageTitle', 'rent'));
     }
 
 }

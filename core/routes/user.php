@@ -66,8 +66,14 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::post('kyc-submit','kycSubmit')->name('kyc.submit');
 
                 //Report
-                Route::any('deposit/history', 'depositHistory')->name('deposit.history');
+                Route::any('payment/history', 'depositHistory')->name('deposit.history');
                 Route::get('transactions','transactions')->name('transactions');
+
+                Route::get('rented/history', 'rentedHistory')->name('rented.history');
+                Route::get('rented/detail/{id}', 'rentedDetail')->name('rented.detail');
+
+                Route::get('ongoing/rental/list', 'rentalList')->name('ongoing.rental.list');
+                Route::get('ongoing/rental/detail/{id}', 'rentalDetail')->name('ongoing.rental.detail');
 
                 Route::post('add-device-token','addDeviceToken')->name('add.device.token');
             });
@@ -80,6 +86,48 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::post('change-password', 'submitPassword');
             });
 
+            Route::controller('VehicleController')->name('vehicle.')->prefix('vehicle')->group(function () {
+                Route::get('store', 'store')->name('store');
+                Route::get('store/data', 'storeData')->name('store.data');
+                Route::post('store/create', 'storeCreate')->name('store.create');
+
+                Route::middleware('vehicle.store')->group(function () {
+                    Route::get('index', 'index')->name('index');
+                    Route::get('pending', 'pending')->name('pending');
+                    Route::get('approved', 'approved')->name('approved');
+                    Route::get('rejected', 'rejected')->name('rejected');
+                    Route::get('add/{id?}', 'add')->name('add');
+                    Route::get('detail/{id}', 'detail')->name('detail');
+                    Route::post('update/{id?}', 'update')->name('update');
+                    Route::post('status/{id}', 'status')->name('status');
+                    Route::get('rented', 'rented')->name('rented');
+                });
+            });
+
+            // Rent
+            Route::controller('RentalController')->name('rental.')->prefix('rental')->group(function () {
+                Route::post('vehicle/{id}', 'rentVehicle')->name('vehicle');
+
+                Route::get('index', 'index')->name('index');
+                Route::get('pending', 'pending')->name('pending');
+                Route::get('approved', 'approved')->name('approved');
+                Route::get('ongoing', 'ongoing')->name('ongoing');
+                Route::get('completed', 'completed')->name('completed');
+                Route::get('cancelled', 'cancelled')->name('cancelled');
+                Route::get('detail/{id}', 'detail')->name('detail');
+                Route::post('approve/{id}', 'approve')->name('approve.status');
+                Route::post('cancel/{id}', 'cancel')->name('cancel.status');
+                Route::post('ongoing/{id}', 'ongoingStatus')->name('ongoing.status');
+                Route::post('complete/{id}', 'completeStatus')->name('complete.status');
+
+            });
+
+            Route::controller('ReviewController')->name('review.')->prefix('review')->group(function () {
+                Route::get('index', 'index')->name('index');
+                Route::get('form/{rental_id}/{id?}', 'form')->name('form');
+                Route::post('add/{rental_id}/{id?}', 'add')->name('add');
+                Route::post('remove/{id}', 'remove')->name('remove');
+            });
 
             // Withdraw
             Route::controller('WithdrawController')->prefix('withdraw')->name('withdraw')->group(function(){

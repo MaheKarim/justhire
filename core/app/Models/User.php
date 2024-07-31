@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Constants\Status;
+use App\Traits\GlobalStatus;
 use App\Traits\UserNotify;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, UserNotify;
+    use HasApiTokens, UserNotify, GlobalStatus;
 
     /**
      * The attributes that should be hidden for arrays.
@@ -36,6 +37,10 @@ class User extends Authenticatable
 
     public function zone() {
         return $this->belongsTo(Zone::class);
+    }
+
+    public function location() {
+        return $this->belongsTo(Location::class);
     }
 
     public function loginLogs()
@@ -135,10 +140,21 @@ class User extends Authenticatable
     public function scopeStoreRejected($query) {
         return $query->where('store', Status::STORE_REJECTED)->whereNotNUll('store_data');
     }
-
     public function deviceTokens()
     {
         return $this->hasMany(DeviceToken::class);
     }
-
+    public function storeStatusBadge(): Attribute {
+        return new Attribute(function () {
+            $html = '';
+            if ($this->store == Status::STORE_PENDING) {
+                $html = '<span class="badge badge--warning">' . trans("Pending") . '</span>';
+            } else if ($this->store == Status::STORE_APPROVED) {
+                $html = '<span class="badge badge--success">' . trans("Approved") . '</span>';
+            } else if ($this->store == Status::STORE_REJECTED) {
+                $html = '<span class="badge badge--danger">' . trans("Rejected") . '</span>';
+            }
+            return $html;
+        });
+    }
 }
