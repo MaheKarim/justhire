@@ -37,16 +37,16 @@
                             </td>
                             <td>
                                 <div>
-                                    {{ __($general->cur_sym) }}{{ showAmount($deposit->amount) }} + <span class="text--danger" title="@lang('charge')">{{ showAmount($deposit->charge) }} </span>
+                                    {{ showAmount($deposit->amount, currencyFormat: false) }} + <span class="text--danger" title="@lang('charge')">{{ showAmount($deposit->charge) }} </span>
                                     <br>
                                     <strong title="@lang('Amount with charge')">
-                                        {{ showAmount($deposit->amount + $deposit->charge) }} {{ __($general->cur_text) }}
+                                        {{ showAmount($deposit->amount + $deposit->charge) }}
                                     </strong>
                                 </div>
                             </td>
                             <td>
                                 <div>
-                                    1 {{ __($general->cur_text) }} = {{ showAmount($deposit->rate) }} {{ __($deposit->method_currency) }}
+                                    1 {{ __(gs('cur_text')) }} = {{ showAmount($deposit->rate) }} {{ __($deposit->method_currency) }}
                                     <br>
                                     <strong>{{ showAmount($deposit->final_amount) }} {{ __($deposit->method_currency) }}</strong>
                                 </div>

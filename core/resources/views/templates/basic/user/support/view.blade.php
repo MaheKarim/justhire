@@ -5,12 +5,12 @@
             <div class="col-md-12">
                 <div class="card custom--card">
                     <div class="card-header card-header-bg d-flex flex-wrap justify-content-between align-items-center">
-                        <h5 class="text-white mt-0">
+                        <h5 class="text-dark mt-0">
                             @php echo $myTicket->statusBadge; @endphp
                             [@lang('Ticket')#{{ $myTicket->ticket }}] {{ $myTicket->subject }}
                         </h5>
                         @if($myTicket->status != Status::TICKET_CLOSE && $myTicket->user)
-                        <button class="btn btn-danger close-button btn-sm confirmationBtn" type="button" data-question="@lang('Are you sure to close this ticket?')" data-action="{{ route('ticket.close', $myTicket->id) }}"><i class="fas fa-lg fa-times-circle"></i>
+                        <button class="btn btn--danger close-button btn--sm confirmationBtn" type="button" data-question="@lang('Are you sure to close this ticket?')" data-action="{{ route('ticket.close', $myTicket->id) }}"><i class="las la-lg la-times-circle"></i>
                         </button>
                         @endif
                     </div>
@@ -25,7 +25,7 @@
                                 </div>
 
                                 <div class="col-md-9">
-                                    <button type="button" class="btn btn-dark btn-sm addAttachment my-2"> <i class="fas fa-plus"></i> @lang('Add Attachment') </button>
+                                    <button type="button" class="btn btn--base btn-sm addAttachment my-2"> <i class="fas fa-plus"></i> @lang('Add Attachment') </button>
                                     <p class="mb-2"><span class="text--info">@lang('Max 5 files can be uploaded | Maximum upload size is '.convertToReadableSize(ini_get('upload_max_filesize')) .' | Allowed File Extensions: .jpg, .jpeg, .png, .pdf, .doc, .docx')</span></p>
                                     <div class="row fileUploadsContainer">
                                     </div>
@@ -49,7 +49,7 @@
                                         <h5 class="my-3">{{ $message->ticket->name }}</h5>
                                     </div>
                                     <div class="col-md-9">
-                                        <p class="text-muted fw-bold my-3">
+                                        <p class="text-dark fw-bold my-3">
                                             @lang('Posted on') {{ showDateTime($message->created_at,'l, dS F Y @ h:i a') }}</p>
                                         <p>{{$message->message}}</p>
                                         @if($message->attachments->count() > 0)
@@ -94,7 +94,7 @@
         </div>
     </div>
 
-    <x-confirmation-modal />
+    <x-confirmation-modal isFrontendSubmit="true"/>
 @endsection
 @push('style')
     <style>
@@ -107,6 +107,9 @@
         .empty-message img{
             width: 120px;
             margin-bottom: 15px;
+        }
+        .input-group-text:focus {
+            box-shadow: none !important;
         }
     </style>
 @endpush
@@ -125,7 +128,7 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <input type="file" name="attachments[]" class="form-control" accept=".jpeg,.jpg,.png,.pdf,.doc,.docx" required>
-                                <button type="button" class="input-group-text removeFile bg--danger border--danger"><i class="fas fa-times"></i></button>
+                                <button type="button" class="input-group-text removeFile bg--danger border--danger text-white"><i class="fas fa-times"></i></button>
                             </div>
                         </div>
                     </div>

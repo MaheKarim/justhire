@@ -1,3 +1,4 @@
+@props(['isFrontendSubmit'=>false])
 <div id="confirmationModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -14,7 +15,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn--dark" data-bs-dismiss="modal">@lang('No')</button>
-                    <button type="submit" class="btn btn--primary">@lang('Yes')</button>
+                    <button type="submit" class="btn @if('isFrontendSubmit') btn--base @else btn--primary @endif">@lang('Yes')</button>
                 </div>
             </form>
         </div>

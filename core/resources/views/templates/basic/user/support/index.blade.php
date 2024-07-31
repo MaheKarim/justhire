@@ -1,10 +1,10 @@
 @extends($activeTemplate.'layouts.master')
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center mt-4">
+    <div class="card custom--card">
+        <div class="card-body">
             <div class="col-md-12">
                 <div class="text-end">
-                    <a href="{{route('ticket.open') }}" class="btn btn-sm btn--base mb-2"> <i class="fas fa-plus"></i> @lang('New Ticket')</a>
+                    <a href="{{route('ticket.open') }}" class="btn btn-sm btn--base mb-3"> <i class="fas fa-plus"></i> @lang('New Ticket')</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table custom--table">
@@ -37,7 +37,7 @@
 
                                     <td>
                                         <a href="{{ route('ticket.view', $support->ticket) }}" class="btn btn--base btn-sm">
-                                            <i class="fas fa-desktop"></i>
+                                            <i class="la la-lg la-desktop"></i>
                                         </a>
                                     </td>
                                 </tr>
