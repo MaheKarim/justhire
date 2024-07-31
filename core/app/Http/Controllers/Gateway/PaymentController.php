@@ -8,6 +8,7 @@ use App\Lib\FormProcessor;
 use App\Models\AdminNotification;
 use App\Models\Deposit;
 use App\Models\GatewayCurrency;
+use App\Models\Rental;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,7 +21,9 @@ class PaymentController extends Controller
             $gate->where('status', Status::ENABLE);
         })->with('method')->orderby('name')->get();
         $pageTitle = 'Deposit Methods';
-        return view('Template::user.payment.deposit', compact('gatewayCurrency', 'pageTitle'));
+        $rent      = Rental::inactive()->where('user_id', auth()->id())->where('id', session('rent_id'))->first();
+
+        return view('Template::user.payment.deposit', compact('gatewayCurrency', 'pageTitle', 'rent'));
     }
 
     public function depositInsert(Request $request)
@@ -33,6 +36,12 @@ class PaymentController extends Controller
 
 
         $user = auth()->user();
+        $rent = Rental::inactive()->where('user_id', $user->id)->where('id', session('rent_id'))->first();
+        if (!$rent) {
+            $notify[] = ['error', 'Invalid request'];
+            return to_route('user.home')->withNotify($notify);
+        }
+
         $gate = GatewayCurrency::whereHas('method', function ($gate) {
             $gate->where('status', Status::ENABLE);
         })->where('method_code', $request->gateway)->where('currency', $request->currency)->first();
@@ -41,29 +50,34 @@ class PaymentController extends Controller
             return back()->withNotify($notify);
         }
 
-        if ($gate->min_amount > $request->amount || $gate->max_amount < $request->amount) {
+        $amount = $rent->price;
+
+        if ($gate->min_amount > $amount || $gate->max_amount < $amount) {
             $notify[] = ['error', 'Please follow deposit limit'];
             return back()->withNotify($notify);
         }
 
-        $charge = $gate->fixed_charge + ($request->amount * $gate->percent_charge / 100);
-        $payable = $request->amount + $charge;
+        $charge      = $gate->fixed_charge + ($amount * $gate->percent_charge / 100);
+        $payable     = $amount + $charge;
         $finalAmount = $payable * $gate->rate;
 
-        $data = new Deposit();
-        $data->user_id = $user->id;
+        $data                  = new Deposit();
+        $data->user_id         = $user->id;
+        $data->rent_id         = $rent->id;
         $data->method_code = $gate->method_code;
         $data->method_currency = strtoupper($gate->currency);
-        $data->amount = $request->amount;
-        $data->charge = $charge;
-        $data->rate = $gate->rate;
-        $data->final_amount = $finalAmount;
-        $data->btc_amount = 0;
-        $data->btc_wallet = "";
-        $data->trx = getTrx();
+        $data->amount          = $amount;
+        $data->charge          = $charge;
+        $data->rate            = $gate->rate;
+        $data->final_amount    = $finalAmount;
+        $data->btc_amount      = 0;
+        $data->btc_wallet      = "";
+        $data->trx             = $rent->rent_no;
         $data->success_url = urlPath('user.deposit.history');
         $data->failed_url = urlPath('user.deposit.history');
         $data->save();
+
+        session()->forget('rent_id');
         session()->put('Track', $data->trx);
         return to_route('user.deposit.confirm');
     }
@@ -143,6 +157,26 @@ class PaymentController extends Controller
             $transaction->remark = 'deposit';
             $transaction->save();
 
+            $transaction               = new Transaction();
+            $transaction->user_id      = $deposit->user_id;
+            $transaction->amount       = $deposit->amount;
+            $transaction->post_balance = $user->balance;
+            $transaction->charge       = $deposit->charge;
+            $transaction->trx_type     = '-';
+            $transaction->details      = 'Payment Via ' . $deposit->gatewayCurrency()->name;
+            $transaction->trx          = $deposit->trx;
+            $transaction->remark       = 'payment';
+            $transaction->save();
+
+            $rent         = Rental::where('user_id', $deposit->user_id)->where('id', $deposit->rent_id)->first();
+            $rent->status = Status::RENT_PENDING;
+            $rent->save();
+
+            $vehicle         = $rent->vehicle;
+            $vehicle->rented = Status::YES;
+            $vehicle->save();
+
+
             if (!$isManual) {
                 $adminNotification = new AdminNotification();
                 $adminNotification->user_id = $user->id;
@@ -160,6 +194,33 @@ class PaymentController extends Controller
                 'rate' => showAmount($deposit->rate,currencyFormat:false),
                 'trx' => $deposit->trx,
                 'post_balance' => showAmount($user->balance)
+            ]);
+
+            notify($vehicle->user, 'VEHICLE_RENTAL_REQUEST', [
+                'username'    => @$vehicle->user->username,
+                'rented_user' => $user->username,
+                'rent_no'     => $rent->rent_no,
+                'brand'       => $vehicle->brand->name,
+                'name'        => $vehicle->name,
+                'model'       => $vehicle->model,
+                'price'       => showAmount($rent->price),
+                'start_date'  => $rent->start_date,
+                'end_date'    => $rent->end_date,
+                'pickup'      => @$rent->pickupPoint->name,
+                'dropoff'     => @$rent->dropPoint->name,
+            ]);
+
+            notify($user, 'RENTAL_REQUEST', [
+                'username'   => $user->username,
+                'rent_no'    => $rent->rent_no,
+                'brand'      => $vehicle->brand->name,
+                'name'       => $vehicle->name,
+                'model'      => $vehicle->model,
+                'price'      => showAmount($rent->price),
+                'start_date' => $rent->start_date,
+                'end_date'   => $rent->end_date,
+                'pickup'     => @$rent->pickupPoint->name,
+                'dropoff'    => @$rent->dropPoint->name,
             ]);
         }
     }

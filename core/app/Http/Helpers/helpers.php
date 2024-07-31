@@ -466,7 +466,6 @@ function isHtml($string)
     }
 }
 
-
 function convertToReadableSize($size) {
     preg_match('/^(\d+)([KMG])$/', $size, $matches);
     $size = (int)$matches[1];
@@ -487,11 +486,40 @@ function convertToReadableSize($size) {
     return $size.$unit;
 }
 
-
 function frontendImage($sectionName, $image, $size = null,$seo = false)
 {
     if ($seo) {
         return getImage('assets/images/frontend/' . $sectionName . '/seo/' . $image, $size);
     }
     return getImage('assets/images/frontend/' . $sectionName . '/' . $image, $size);
+}
+
+function showRatings($rating) {
+    $ratings = '';
+    if ($rating > 0) {
+        $avgRating  = $rating;
+        $integerVal = floor($avgRating);
+        $fraction   = $avgRating - $integerVal;
+
+        if ($fraction < .25) {
+            $avgRating = intval($avgRating);
+        }
+        if ($fraction > .75) {
+            $avgRating = intval($avgRating) + 1;
+        }
+        for ($i = 1; $i <= $avgRating; $i++) {
+            $ratings .= '<li class="rating-list__item"><i class="las la-star"></i></li>';
+        }
+        if ($fraction > .25 && $fraction < .75) {
+            $avgRating += 1;
+            $ratings .= '<li class="rating-list__item"><i class="las la-star-half-alt"></i></li>';
+        }
+    } else {
+        $avgRating = 0;
+    }
+    $nonStar = 5 - intval($avgRating);
+    for ($k = 1; $k <= $nonStar; $k++) {
+        $ratings .= '<li class="rating-list__item"><i class="lar la-star"></i></li>';
+    }
+    return $ratings;
 }

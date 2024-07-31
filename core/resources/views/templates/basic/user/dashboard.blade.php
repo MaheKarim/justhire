@@ -39,7 +39,7 @@
                     <div class="d-flex flex-wrap gap-4">
                         <div class="flex-grow-1">
                             <label class="form--label">@lang('Pick Up')</label>
-                            <select class="form--control" name="pick_up_zone_id" required>
+                            <select class="form--control select2-basic" name="pick_up_zone_id" required>
                                 <option value="">@lang('Select One')</option>
                                 @foreach ($zones as $zone)
                                     <option value="{{ $zone->id }}">{{ __($zone->name) }}</option>

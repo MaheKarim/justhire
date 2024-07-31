@@ -1,16 +1,12 @@
 @extends($activeTemplate . 'layouts.master')
 @section('content')
-    <div class="container ">
-        <div class="row justify-content-center">
-            <div class="col-lg-9">
+    <div class="card custom--card ">
+        <div class="card-body">
                 <form action="{{ route('user.deposit.insert') }}" method="post" class="deposit-form">
                     @csrf
                     <input type="hidden" name="currency">
                     <div class="gateway-card">
                         <div class="row justify-content-center gy-sm-4 gy-3">
-                            <div class="col-12">
-                                <h5 class="payment-card-title">@lang('Deposit')</h5>
-                            </div>
                             <div class="col-lg-6">
                                 <div class="payment-system-list is-scrollable gateway-option-list">
                                     @foreach ($gatewayCurrency as $data)
@@ -50,7 +46,7 @@
                                             <div class="deposit-info__input-group input-group">
                                                 <span class="deposit-info__input-group-text">{{ gs('cur_sym') }}</span>
                                                 <input type="text" class="form-control form--control amount" name="amount"
-                                                    placeholder="@lang('00.00')" value="{{ old('amount') }}" autocomplete="off">
+                                                    placeholder="@lang('00.00')" value="{{ getAmount($rent->price) }}" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -128,7 +124,6 @@
                 </form>
             </div>
         </div>
-    </div>
 @endsection
 
 @push('script')
