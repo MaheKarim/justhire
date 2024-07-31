@@ -51,10 +51,10 @@ class SiteController extends Controller
     {
         $pageTitle = "Contact Us";
         $user = auth()->user();
-        $sections = Page::where('tempname',activeTemplate())->where('slug','contact')->first();
+        $sections = Page::where('tempname', activeTemplate())->where('slug', 'contact')->first();
         $seoContents = $sections->seo_content;
         $seoImage = @$seoContents->image ? getImage(getFilePath('seo') . '/' . @$seoContents->image, getFileSize('seo')) : null;
-        return view('Template::contact',compact('pageTitle','user','sections','seoContents','seoImage'));
+        return view('Template::contact', compact('pageTitle', 'user', 'sections', 'seoContents', 'seoImage'));
     }
 
     public function contactSubmit(Request $request)

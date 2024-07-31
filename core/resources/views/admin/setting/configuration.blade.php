@@ -150,19 +150,6 @@
                             </div>
                         </li>
 
-
-                        <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
-                            <div>
-                                <p class="fw-bold mb-0">@lang('In App Payment')</p>
-                                <p class="mb-0">
-                                    <small>@lang('If you enable this module, users can make payment via mobile app using google pay.') <a href="{{ route('admin.setting.app.purchase') }}">@lang('Setting here')</a></small>
-                                </p>
-                            </div>
-                            <div class="form-group">
-                                <input type="checkbox" data-width="100%" data-size="large" data-onstyle="-success" data-offstyle="-danger" data-bs-toggle="toggle" data-height="35" data-on="@lang('Enable')" data-off="@lang('Disable')" name="in_app_payment" @if(gs('in_app_payment')) checked @endif>
-                            </div>
-                        </li>
-
                     </ul>
                 </div>
                 <div class="card-footer">

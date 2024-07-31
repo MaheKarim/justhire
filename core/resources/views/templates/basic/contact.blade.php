@@ -79,9 +79,9 @@
         </div>
     </section>
 
-    @if($sections != null)
-        @foreach(json_decode($sections) as $sec)
-            @include($activeTemplate.'sections.'.$sec)
+    @if (@$sections->secs != null)
+        @foreach (json_decode($sections->secs) as $sec)
+            @include($activeTemplate . 'sections.' . $sec)
         @endforeach
     @endif
 @endsection
