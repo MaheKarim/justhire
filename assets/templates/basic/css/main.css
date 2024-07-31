@@ -3626,6 +3626,7 @@ main {
 
 .btn--base {
   background-color: hsl(var(--base)) !important;
+  border: 1px solid hsl(var(--base)) !important;
 }
 
 .btn--base:hover,

@@ -2,14 +2,10 @@
 @section('content')
     <div class="card custom--card ">
         <div class="card-body">
-            <div class="col-lg-9">
-                <form action="{{ route('user.withdraw.money') }}" method="post" class="withdraw-form">
+              <form action="{{ route('user.withdraw.money') }}" method="post" class="withdraw-form">
                     @csrf
                     <div class="gateway-card">
                         <div class="row justify-content-center gy-sm-4 gy-3">
-                            <div class="col-12">
-                                <h5 class="payment-card-title text--dark">@lang('Withdraw')</h5>
-                            </div>
                             <div class="col-lg-6">
                                 <div class="payment-system-list is-scrollable gateway-option-list">
                                     @foreach ($withdrawMethod as $data)
@@ -40,7 +36,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="payment-system-list p-3">
+                                <div class="payment-system-list payment-system-list2">
                                     <div class="deposit-info">
                                         <div class="deposit-info__title">
                                             <p class="text mb-0">@lang('Amount')</p>
@@ -118,11 +114,9 @@
                         </div>
                     </div>
                 </form>
-            </div>
         </div>
     </div>
 @endsection
-
 
 
 @push('script')
