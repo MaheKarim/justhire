@@ -63,7 +63,7 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="form--label">@lang('Country')</label>
-                            <input class="form--control" value="{{ @$user->country }}" disabled>
+                            <input class="form--control" value="{{ @$user->country_name }}" disabled>
                         </div>
                     </div>
                 </div>

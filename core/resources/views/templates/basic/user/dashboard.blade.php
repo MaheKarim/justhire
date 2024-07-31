@@ -4,7 +4,7 @@
         $vehicleContent = getContent('vehicle_store.content', true);
         $kycContent = getContent('kyc.content', true);
     @endphp
-
+    <div class="notice"></div>
     @if ($user->store == Status::STORE_INITIATE || $user->store == Status::STORE_REJECTED)
         <div class="alert alert-danger mb-4" role="alert">
             <h6 class="mb-2 text--danger">@lang('Vehicle Store Required')</h6>

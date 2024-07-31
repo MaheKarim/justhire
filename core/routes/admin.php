@@ -285,26 +285,6 @@ Route::middleware('admin')->group(function () {
         //maintenance_mode
         Route::get('maintenance-mode','maintenanceMode')->name('maintenance.mode');
         Route::post('maintenance-mode','maintenanceModeSubmit');
-
-        //In app purchase
-        Route::get('in-app-purchase','inAppPurchase')->name('setting.app.purchase');
-        Route::post('in-app-purchase','inAppPurchaseConfigure');
-        Route::get('in-app-purchase/file/download','inAppPurchaseFileDownload')->name('setting.app.purchase.file.download');
-
-    });
-
-    Route::controller('CronConfigurationController')->name('cron.')->prefix('cron')->group(function () {
-        Route::get('index', 'cronJobs')->name('index');
-        Route::post('store', 'cronJobStore')->name('store');
-        Route::post('update', 'cronJobUpdate')->name('update');
-        Route::post('delete/{id}', 'cronJobDelete')->name('delete');
-        Route::get('schedule', 'schedule')->name('schedule');
-        Route::post('schedule/store', 'scheduleStore')->name('schedule.store');
-        Route::post('schedule/status/{id}', 'scheduleStatus')->name('schedule.status');
-        Route::get('schedule/pause/{id}', 'schedulePause')->name('schedule.pause');
-        Route::get('schedule/logs/{id}', 'scheduleLogs')->name('schedule.logs');
-        Route::post('schedule/log/resolved/{id}', 'scheduleLogResolved')->name('schedule.log.resolved');
-        Route::post('schedule/log/flush/{id}', 'logFlush')->name('log.flush');
     });
 
     //KYC setting

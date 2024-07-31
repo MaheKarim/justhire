@@ -72,7 +72,6 @@ class GeneralSettingController extends Controller
         return view('admin.setting.configuration', compact('pageTitle'));
     }
 
-
     public function systemConfigurationSubmit(Request $request)
     {
         $general = gs();
@@ -87,7 +86,6 @@ class GeneralSettingController extends Controller
         $general->registration = $request->registration ? Status::ENABLE : Status::DISABLE;
         $general->agree = $request->agree ? Status::ENABLE : Status::DISABLE;
         $general->multi_language = $request->multi_language ? Status::ENABLE : Status::DISABLE;
-        $general->in_app_payment = $request->in_app_payment ? Status::ENABLE : Status::DISABLE;
         $general->save();
         $notify[] = ['success', 'System configuration updated successfully'];
         return back()->withNotify($notify);
@@ -294,40 +292,5 @@ class GeneralSettingController extends Controller
 
         $notify[] = ['success', ucfirst($key) . ' credential updated successfully'];
         return back()->withNotify($notify);
-    }
-
-    public function inAppPurchase()
-    {
-        $pageTitle = 'In App Purchase Configuration - Google Play Store';
-        $data = null;
-        $fileExists = file_exists(getFilePath('appPurchase') . '/google_pay.json');
-        return view('admin.setting.in_app_purchase.google', compact('pageTitle', 'data', 'fileExists'));
-    }
-
-    public function inAppPurchaseConfigure(Request $request)
-    {
-        $request->validate([
-            'file' => ['required', new FileTypeValidate(['json'])],
-        ]);
-
-        try {
-            fileUploader($request->file, getFilePath('appPurchase'), filename: 'google_pay.json');
-        } catch (Exception $exp) {
-            $notify[] = ['error', 'Couldn\'t upload your file'];
-            return back()->withNotify($notify);
-        }
-
-        $notify[] = ['success', 'Configuration file uploaded successfully'];
-        return back()->withNotify($notify);
-    }
-
-    public function inAppPurchaseFileDownload()
-    {
-        $filePath = getFilePath('appPurchase') . '/google_pay.json';
-        if (!file_exists(getFilePath('appPurchase') . '/google_pay.json')) {
-            $notify[] = ['success', "File not found"];
-            return back()->withNotify($notify);
-        }
-        return response()->download($filePath);
     }
 }

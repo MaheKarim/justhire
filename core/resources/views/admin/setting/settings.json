@@ -97,13 +97,6 @@
         "icon": "las la-puzzle-piece",
         "route_name": "admin.extensions.index"
     },
-    "cron_job_setting": {
-        "keyword": ["cron job", "automate operations", "schedule", "automate", "tasks", "cron job settings", "task scheduling", "automation settings", "configure cron job", "configure tasks"],
-        "title": "Cron Job Setting",
-        "subtitle": "Configure cron job to automate some operations of the system.",
-        "icon": "las la-clock",
-        "route_name": "admin.cron.index"
-    },
     "policy_pages": {
         "keyword": ["privacy and policy", "terms and condition", "terms of service"],
         "title": "Policy Pages",
@@ -149,12 +142,5 @@
         "subtitle": "Insert the robots.txt content here to enhance bot web crawlers and instruct them on how to interact with certain areas of the website.",
         "icon": "las la-robot",
         "route_name": "admin.setting.robot"
-    },
-    "in_app_payment": {
-        "keyword": ["in app payment", "google pay", "payments", "mobile payments", "app transactions", "payment settings", "in-app payment settings", "mobile payment settings", "configure payments", "app transaction settings"],
-        "title": "In App Payment",
-        "subtitle": "Configure google pay to accept payments directly within your app.",
-        "icon": "lab la-google-play",
-        "route_name": "admin.setting.app.purchase"
     }
 }
