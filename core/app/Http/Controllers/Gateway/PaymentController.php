@@ -83,21 +83,6 @@ class PaymentController extends Controller
     }
 
 
-    public function appDepositConfirm($hash)
-    {
-        try {
-            $id = decrypt($hash);
-        } catch (\Exception $ex) {
-            abort(404);
-        }
-        $data = Deposit::where('id', $id)->where('status', Status::PAYMENT_INITIATE)->orderBy('id', 'DESC')->firstOrFail();
-        $user = User::findOrFail($data->user_id);
-        auth()->login($user);
-        session()->put('Track', $data->trx);
-        return to_route('user.deposit.confirm');
-    }
-
-
     public function depositConfirm()
     {
         $track = session()->get('Track');
