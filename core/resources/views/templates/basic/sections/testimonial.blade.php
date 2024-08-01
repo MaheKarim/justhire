@@ -16,7 +16,7 @@
                     <q class="testimonial-item__desc">{{ __(@$testimonial->data_values->quotes) }}</q>
                     <div class="testimonial-item__info">
                         <div class="testimonial-item__thumb">
-                            <img src="{{ getImage('assets/images/frontend/testimonial/' . @$testimonial->data_values->image, '60x60') }}" class="fit-image" alt="@lang('image')" />
+                            <img src="{{ frontendImage('testimonial' , @$testimonial->data_values->image, '60x60') }}" class="fit-image" alt="@lang('image')" />
                         </div>
                         <div class="testimonial-item__details">
                             <p class="testimonial-item__name">{{ __(@$testimonial->data_values->name) }}</p>

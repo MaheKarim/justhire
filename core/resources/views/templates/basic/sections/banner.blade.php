@@ -5,14 +5,14 @@
 <section class="banner-section py-120">
     <div class="container">
         <div class="banner-section__shape">
-            <img src="{{ getImage('assets/images/frontend/banner/' . @$bannerContent->data_values->background_image, '1010x715') }}" alt="@lang('image')" />
+            <img src="{{ frontendImage('banner' , @$bannerContent->data_values->background_image, '1010x715') }}" alt="@lang('image')" />
         </div>
         <div class="row align-items-center flex-lg-row-reverse gy-4 gy-sm-5">
             <div class="col-xl-7 col-lg-6">
                 <div class="banner-slider">
                     @foreach (@$bannerElement as $banner)
                         <div class="slick-item">
-                            <img src="{{ getImage('assets/images/frontend/banner/' . @$banner->data_values->slider_image, '670x395') }}" alt="@lang('image')" />
+                            <img src="{{ frontendImage('banner' , @$banner->data_values->slider_image, '670x395') }}" alt="@lang('image')" />
                         </div>
                     @endforeach
                 </div>

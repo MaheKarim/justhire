@@ -7,7 +7,7 @@
         <div class="row align-items-center">
             <div class="col-md-6 col-xl-5 col-xxl-4">
                 <div class="benifit-thumb">
-                    <img src="{{ getImage('assets/images/frontend/feature/' . @$featureContent->data_values->image, '610x605') }}" alt="@lang('image')" />
+                    <img src="{{ frontendImage('feature' , @$featureContent->data_values->image, '610x605') }}" alt="@lang('image')" />
                 </div>
             </div>
             <div class="col-md-6 col-xl-7 col-xxl-8">
@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="benifit-shape">
-            <img src="{{ getImage('assets/images/frontend/feature/' . @$featureContent->data_values->background_image, '995x545') }}" alt="@lang('image')" />
+            <img src="{{ frontendImage('feature' , @$featureContent->data_values->background_image, '995x545') }}" alt="@lang('image')" />
         </div>
     </div>
 </section>

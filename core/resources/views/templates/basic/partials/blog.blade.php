@@ -3,7 +3,7 @@
         <a href="{{ route('blog.details', slug(@$blog->data_values->title)) }}" class="blog-item">
             <div class="blog-item__wrapper">
                 <div class="blog-item__thumb">
-                    <img src="{{ getImage('assets/images/frontend/blog/' . @$blog->data_values->image, '485x245') }}" class="fit-image" alt="@lang('image')" />
+                    <img class="fit-image" src="{{ frontendImage('blog', @$blog->data_values->image, '485x245') }}" alt="@lang('image')">
                 </div>
                 <div class="blog-item__content">
                     <h5 class="blog-item__title border-effect">{{ __(@$blog->data_values->title) }}</h5>

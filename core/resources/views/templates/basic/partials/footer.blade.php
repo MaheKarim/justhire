@@ -5,7 +5,7 @@
     $contactContent = getContent('contact_us.content', true);
 @endphp
 <footer class="footer-area">
-    <div class="footer-wrapper bg-img py-120" data-background-image="{{ getImage('assets/images/frontend/footer/' . @$footerContent->data_values->image, '1905x535') }}">
+    <div class="footer-wrapper bg-img py-120" data-background-image="{{ frontendImage('footer', @$footerContent->data_values->image, '1905x535') }}">
         <div class="container">
             <div class="row justify-content-between gy-5">
                 <div class="col-xl-3 col-sm-6">

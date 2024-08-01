@@ -1,7 +1,7 @@
 @php
     $vehicleContent = getContent('vehicle.content', true);
 @endphp
-<section class="our-vehicle bg-img py-120" data-background-image="{{ getImage('assets/images/frontend/vehicle/' . @$vehicleContent->data_values->background_image, '1905x1130') }}">
+<section class="our-vehicle bg-img py-120" data-background-image="{{ frontendImage('vehicle' , @$vehicleContent->data_values->background_image, '1905x1130') }}">
     <div class="container">
         <div class="section-heading">
             <p class="section-heading__name name-base">{{ __(@$vehicleContent->data_values->heading) }}</p>

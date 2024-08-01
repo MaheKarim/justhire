@@ -28,7 +28,7 @@
 
             <div class="col-lg-6">
                 <div class="cta-contact-thumb">
-                    <img src="{{ getImage('assets/images/frontend/cta_contact/' . @$ctaContact->data_values->image, '640x380') }}" alt="image">
+                    <img src="{{ frontendImage('cta_contact' , @$ctaContact->data_values->image, '640x380') }}" alt="image">
                 </div>
             </div>
         </div>

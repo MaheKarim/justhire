@@ -6,7 +6,7 @@
                 <div class="col-xl-9 col-lg-8">
                     <div class="blog-details">
                         <div class="blog-details__thumb mb-2">
-                            <img src="{{ getImage('assets/images/frontend/blog/' . @$blog->data_values->image, '970x490') }}" class="fit-image rounded-4" alt="@lang('image')">
+                            <img src="{{ frontendImage('blog' , @$blog->data_values->image, '970x490') }}" class="fit-image rounded-4" alt="@lang('image')">
                         </div>
                         <div class="blog-details__content">
                             <span class="blog-item__date mt-3  mb-2">
@@ -27,7 +27,7 @@
                                     <li class="social-list__item"><a href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{ urlencode(url()->current()) }}&amp;title={{ __(@$blog->data_values->title) }}&amp;summary={{ __(@$blog->data_values->description) }}"
                                                                      class="social-list__link flex-center"> <i class="fab fa-linkedin-in"></i></a>
                                     </li>
-                                    <li class="social-list__item"><a href="http://pinterest.com/pin/create/button/?url={{ urlencode(url()->current()) }}&description={{ __(@$blog->data_values->title) }}&media={{ getImage('assets/images/frontend/blog/' . @$blog->data_values->image, '970x490') }}"
+                                    <li class="social-list__item"><a href="http://pinterest.com/pin/create/button/?url={{ urlencode(url()->current()) }}&description={{ __(@$blog->data_values->title) }}&media={{ frontendImage('blog' , @$blog->data_values->image, '970x490') }}"
                                                                      class="social-list__link flex-center"> <i class="fab fa-pinterest"></i></a></li>
                                 </ul>
                             </div>

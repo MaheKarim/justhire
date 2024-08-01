@@ -27,7 +27,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="why-us-thumb">
-                    <img src="{{ getImage('assets/images/frontend/why_choose_us/' . @$chooseContent->data_values->image, '555x355') }}" alt="@lang('image')">
+                    <img src="{{ frontendImage('why_choose_us' , @$chooseContent->data_values->image, '555x355') }}" alt="@lang('image')">
                 </div>
             </div>
         </div>

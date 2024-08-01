@@ -7,7 +7,7 @@
         <div class="row gy-4 align-items-center">
             <div class="col-lg-6">
                 <div class="about-section__tumb">
-                    <img class="fit-image" src="{{ getImage('assets/images/frontend/about/' . @$aboutContent->data_values->image, '635x530') }}" alt="@lang('image')">
+                    <img class="fit-image" src="{{ frontendImage('about' , @$aboutContent->data_values->image, '635x530') }}" alt="@lang('image')">
                 </div>
             </div>
             <div class="col-lg-6">

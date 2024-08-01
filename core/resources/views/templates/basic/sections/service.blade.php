@@ -29,7 +29,7 @@
                         <div class="row g-4 g-xl-5">
                             <div class="col-lg-6">
                                 <div class="choose-thumb">
-                                    <img class="fit-image" src="{{ getImage('assets/images/frontend/service/' . @$service->data_values->image, '625x370') }}" alt="@lang('image')" />
+                                    <img class="fit-image" src="{{ frontendImage('service' , @$service->data_values->image, '625x370') }}" alt="@lang('image')" />
                                 </div>
                             </div>
                             <div class="col-lg-6">

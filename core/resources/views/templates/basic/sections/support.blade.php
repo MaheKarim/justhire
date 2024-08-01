@@ -1,7 +1,7 @@
 @php
     $supportContent = getContent('support.content', true);
 @endphp
-<section class="support-section py-120 bg-img bg-fixed" data-background-image="{{ getImage('assets/images/frontend/support/' . @$supportContent->data_values->image, '1920x1080') }}">
+<section class="support-section py-120 bg-img bg-fixed" data-background-image="{{ frontendImage('support' , @$supportContent->data_values->image, '1920x1080') }}">
     <div class="container">
         <div class="row gy-4 justify-content-center align-items-center">
             <div class="col-lg-12">
