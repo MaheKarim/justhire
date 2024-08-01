@@ -214,6 +214,8 @@
 
 
 /* ////////////////// select 2 css //////////////// */
+
+/* ////////////////// select 2 css //////////////// */
 .select2-dropdown {
   border: 0 !important;
   margin-top: 8px !important;
@@ -276,19 +278,25 @@
 }
 
 .select2-container--default .select2-selection--single {
-  border-color: #ced4da !important;
-  border-width: 2px !important;
-  border-radius: .375rem !important;
+  border-color: hsl(var(--border-color)/.65) !important;
+  border-width: 1px !important;
+  border-radius: 8px !important;
   padding: .375rem .75rem !important;
-  height: 100% !important;
+  height: 49px !important;
 }
-
+.selection {
+  width: 100%;
+}
 .select2-container--default .select2-selection--single .select2-selection__arrow {
-  top: 8px !important;
+  top: 12px !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  color: hsl(var(--body-color));
+  line-height: 2;
 }
 
 .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow:after {
-  transform: rotate(-180deg);
+  content: "\f106";
 }
 
 .select2-results__option:last-child {
@@ -308,7 +316,7 @@
 }
 
 .select2-container--default .select2-search--dropdown .select2-search__field:focus {
-  border-color: hsl(var(--base)) !important;
+  border-color: hsl(var(--base-two) / 0.1) !important;
   box-shadow: 0 0 25px rgba(115, 103, 240 0.071) !important;
   outline: 0 !important;
 }
@@ -329,10 +337,13 @@
   font-size: 12px;
   margin-bottom: 0px !important;
 }
-.select2-container--open .select2-selection.select2-selection--single, .select2-container--open .select2-selection.select2-selection--multiple {
+
+.select2-container--open .select2-selection.select2-selection--single,
+.select2-container--open .select2-selection.select2-selection--multiple {
   border-color: hsl(var(--base)) !important;
   border-radius: .375rem !important;
 }
+
 
 
 .gateway-card {
@@ -560,4 +571,10 @@ button .spinner-border {
 
 .close-button{
   color: #fff !important;
+}
+.select2 .dropdown-wrapper {
+  display: none;
+}
+.select2-container:has(.select2-selection--single) {
+  width: 100% !important;
 }

@@ -42,17 +42,17 @@
 @endsection
 @if($deposit->from_api)
     @push('script')
-    <script>
-        (function($){
-            "use strict";
+        <script>
+            (function ($) {
+                "use strict";
 
-            $('.appPayment').on('submit',function(){
-                $(this).find('[type=submit]').html('<i class="las la-spinner fa-spin"></i>');
-            })
+                $('.appPayment').on('submit', function () {
+                    $(this).find('[type=submit]').html('<i class="las la-spinner fa-spin"></i>');
+                })
 
 
-        })(jQuery);
+            })(jQuery);
 
-    </script>
+        </script>
     @endpush
 @endif

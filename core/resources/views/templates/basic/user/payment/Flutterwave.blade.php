@@ -1,9 +1,7 @@
 @extends($activeTemplate.'layouts.master')
 
 @section('content')
-<div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6">
             <div class="card custom--card">
                 <div class="card-header">
                     <h5 class="card-title">@lang('Flutterwave')</h5>
@@ -23,8 +21,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
 @endsection
 @push('script')
     <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>

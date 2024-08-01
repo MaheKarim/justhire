@@ -46,7 +46,7 @@
                                             <div class="deposit-info__input-group input-group">
                                                 <span class="deposit-info__input-group-text">{{ gs('cur_sym') }}</span>
                                                 <input type="text" class="form-control form--control amount" name="amount"
-                                                    placeholder="@lang('00.00')" value="{{ getAmount($rent->price) }}" autocomplete="off">
+                                                    placeholder="@lang('00.00')" value="{{ getAmount(@$rent->price) }}" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>

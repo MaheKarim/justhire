@@ -295,7 +295,7 @@
                         @csrf
                         <div class="form-group">
                             <label class="form--label">@lang('Pick Up')</label>
-                            <select class="form--control" name="pick_up_location_id" required>
+                            <select class="form--control select2-basic" name="pick_up_location_id" required>
                                 <option value="{{ @$vehicle->user->location_id }}">{{ __($vehicle->user->location->name) }}</option>
                             </select>
                         </div>
